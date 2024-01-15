@@ -1,0 +1,59 @@
+{
+  "name": "visionary-url",
+  "version": "1.1.0",
+  "description": "A lightweight library for generating image URLs with baked-in blurhash placeholders.",
+  "type": "module",
+  "main": "./dist/visionary-url.umd.cjs",
+  "module": "./dist/visionary-url.js",
+  "source": "./lib/index.ts",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/visionary-url.js",
+      "require": "./dist/visionary-url.umd.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./constants": {
+      "import": "./dist/constants.js",
+      "require": "./dist/constants.umd.cjs",
+      "types": "./dist/constants.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc && vite build",
+    "clean": "rimraf dist/",
+    "dev": "vite",
+    "lint": "tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visionary-cloud/visionary-url"
+  },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "universal-base64url": "1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.19.2",
+    "rimraf": "5.0.5",
+    "typescript": "5.3.3",
+    "vite": "5.0.7",
+    "vite-plugin-dts": "3.6.4",
+    "vitest": "1.0.1"
+  },
+  "license": "ISC",
+  "keywords": [
+    "base64url",
+    "blur",
+    "blurhash",
+    "image",
+    "placeholder",
+    "ux"
+  ]
+}
