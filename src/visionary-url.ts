@@ -11,37 +11,6 @@ import {
 } from "./types/visionary.types";
 import { InvalidEndpoint } from "./error";
 
-/**
- * Given a Visionary URL, extracts the code and any options tokens
- */
-const extractUrlParts = (inputUrl: string): VisionaryUrlParts | null => {
-  const url = new URL(inputUrl);
-  const pathParts = compact(url.pathname.split("/"));
-  if (pathParts[0] !== "image" || ![3, 4].includes(pathParts.length)) {
-    throw new Error("Unrecognized URL");
-  }
-  const code = pathParts[1].trim();
-  if (!code.length || !isBase64UrlFormatted(code)) {
-    throw new Error("URL is not formatted as base64url");
-  }
-  // Options defined in URL
-  if (pathParts.length === 4) {
-    const optionTokens = pathParts[2].split(",");
-    return {
-      code,
-      optionTokens,
-    };
-  }
-  // Options not defined in URL
-  if (pathParts.length === 3) {
-    return {
-      code,
-      optionTokens: [],
-    };
-  }
-  return null;
-};
-
 export const parseVisionaryUrl = (url: string): VisionaryImage | null => {
   if (!url) {
     return null;
@@ -106,4 +75,35 @@ export const generateVisionaryUrl = (
     urlParts.push("image.jpg");
   }
   return urlParts.join("/");
+};
+
+/**
+ * Given a Visionary URL, extracts the code and any options tokens
+ */
+const extractUrlParts = (inputUrl: string): VisionaryUrlParts | null => {
+  const url = new URL(inputUrl);
+  const pathParts = compact(url.pathname.split("/"));
+  if (pathParts[0] !== "image" || ![3, 4].includes(pathParts.length)) {
+    throw new Error("Unrecognized URL");
+  }
+  const code = pathParts[1].trim();
+  if (!code.length || !isBase64UrlFormatted(code)) {
+    throw new Error("URL is not formatted as base64url");
+  }
+  // Options defined in URL
+  if (pathParts.length === 4) {
+    const optionTokens = pathParts[2].split(",");
+    return {
+      code,
+      optionTokens,
+    };
+  }
+  // Options not defined in URL
+  if (pathParts.length === 3) {
+    return {
+      code,
+      optionTokens: [],
+    };
+  }
+  return null;
 };

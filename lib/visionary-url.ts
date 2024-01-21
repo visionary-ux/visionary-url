@@ -4,5 +4,9 @@ export { generateVisionaryUrl, parseVisionaryUrl } from "../src/visionary-url";
 export * from "../src/enum";
 export { parseOptionsString } from "../src/image-options";
 export * from "../src/token";
-export { formatToContentType, isBase64UrlFormatted } from "../src/util";
+export {
+  formatToContentType,
+  isBase64UrlFormatted,
+  suggestedBlurhashComponentDimensions,
+} from "../src/util";
 export * from "../src/types/visionary.types";
