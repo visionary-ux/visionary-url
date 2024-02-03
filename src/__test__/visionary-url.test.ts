@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { VisionaryImageFields } from "../types/visionary.types";
-import { ImageSizeEnum } from "../enum";
+import { ImageFormatEnum, ImageSizeEnum } from "../enum";
 import { InvalidEndpoint } from "../error";
 import { generateVisionaryUrl, parseVisionaryUrl } from "../visionary-url";
 
@@ -29,13 +29,14 @@ describe("visionary-url", () => {
 
     test("parses a Visionary URL with options", () => {
       const urlWithOptions =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k/strawberries.jpg";
+        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k,avif/strawberries.jpg";
 
       const { fields, options } = parseVisionaryUrl(urlWithOptions)!;
 
       expect(fields.fileId).toBe("vb87s1");
       expect(options.size).toBe(ImageSizeEnum["4k"]);
-      expect(Object.keys(options).length).toBe(1);
+      expect(options.format).toBe(ImageFormatEnum.AVIF);
+      expect(Object.keys(options).length).toBe(2);
     });
 
     test("can parse bad input", () => {
