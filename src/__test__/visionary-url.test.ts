@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import { VisionaryImageFields } from "../types/visionary.types";
 import { ImageFormatEnum, ImageSizeEnum } from "../enum";
 import { InvalidEndpoint } from "../error";
-import { generateVisionaryUrl, parseVisionaryUrl } from "../visionary-url";
+import { generateVisionaryUrl, parseVisionaryString, parseVisionaryUrl } from "../visionary-url";
 
 const sampleFields: VisionaryImageFields = {
   blurhash: "LCDJYN9FxG_M_N%L%M%M4o~ptRIA",
@@ -39,7 +39,7 @@ describe("visionary-url", () => {
       expect(Object.keys(options).length).toBe(2);
     });
 
-    test("can parse bad input", () => {
+    test("handles a bad input", () => {
       const response = parseVisionaryUrl(null as unknown as string);
 
       expect(response).toBe(null);
@@ -47,7 +47,7 @@ describe("visionary-url", () => {
   });
 
   describe(generateVisionaryUrl.name, () => {
-    test("can generate a URL", () => {
+    test("generates a URL", () => {
       const url = generateVisionaryUrl(sampleFields);
 
       const expectedUrl =
@@ -56,7 +56,7 @@ describe("visionary-url", () => {
       expect(url).toBe(expectedUrl);
     });
 
-    test("can generate a URL with a custom endpoint", () => {
+    test("generates a URL with a custom endpoint", () => {
       const url = generateVisionaryUrl(sampleFields, {
         endpoint: "https://cdn.iss.space",
       });
@@ -67,7 +67,7 @@ describe("visionary-url", () => {
       expect(url).toBe(expectedUrl);
     });
 
-    test("can generate a URL with the download option specified", () => {
+    test("generates a URL with the download option specified", () => {
       const url = generateVisionaryUrl(sampleFields, {
         download: true,
       });
@@ -147,6 +147,37 @@ describe("visionary-url", () => {
 
       expect(testError1).toThrowError(InvalidEndpoint);
       expect(testError2).toThrowError(InvalidEndpoint);
+    });
+  });
+
+  describe(parseVisionaryString.name, () => {
+    test("parses a Visionary URL", () => {
+      const inputString =
+        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/sm,webp/fruit.jpg";
+
+      const { fields, options } = parseVisionaryString(inputString)!;
+
+      expect(fields.fileId).toBe("vb87s1");
+      expect(options.size).toBe(ImageSizeEnum["sm"]);
+      expect(options.format).toBe(ImageFormatEnum.WEBP);
+    });
+
+    test("parses a Visionary code", () => {
+      const inputString =
+        "RnpIeUkxUlhPMiEzMzUxITQ5ODkhZDNiZTgwIVVDTixGaXE_MDNeJH5vSVVSOmpbMG5qWHQ2V0UtOnNrYWVhIyE0ITQ";
+
+      const { fields } = parseVisionaryString(inputString)!;
+
+      expect(fields.fileId).toBe("FzHyI1RXO2");
+      expect(fields.bcc).toBe("d3be80");
+      expect(fields.blurhashX).toBe(4);
+      expect(fields.blurhashY).toBe(4);
+    });
+
+    test("handles a bad input", () => {
+      const response = parseVisionaryString("");
+
+      expect(response).toBe(null);
     });
   });
 });

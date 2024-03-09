@@ -1,5 +1,5 @@
 export { generateVisionaryCode, parseVisionaryCode } from "../src/visionary-code";
-export { generateVisionaryUrl, parseVisionaryUrl } from "../src/visionary-url";
+export { generateVisionaryUrl, parseVisionaryString, parseVisionaryUrl } from "../src/visionary-url";
 
 export * from "../src/enum";
 export { parseOptionsString } from "../src/image-options";

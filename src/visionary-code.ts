@@ -43,16 +43,17 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
   if (!sanitizedCode.length || !isBase64UrlFormatted(sanitizedCode)) {
     return null;
   }
-  const imageData = decodeBase64Url(sanitizedCode);
-  if (!imageData) {
+  const imageDataStr = decodeBase64Url(sanitizedCode);
+  if (!imageDataStr) {
     return null;
   }
-  const fields = imageData.split(V_CODE_SEPARATOR);
+  // const fields = imageData.split(V_CODE_SEPARATOR);
+  const imageData = imageDataStr.split(V_CODE_SEPARATOR);
   // codes must contain at a minimum: fileId, width, height
-  if (fields.length < 3) {
+  if (imageData.length < 3) {
     return null;
   }
-  const [fileIdInput, widthInput, heightInput, bcc, blurhash, bhX, bhY, altText] = fields;
+  const [fileIdInput, widthInput, heightInput, bcc, blurhash, bhX, bhY, altText] = imageData;
   const fileId = fileIdInput.trim();
   if (!fileId.length) {
     console.error("Cannot parse code, empty file id");
@@ -70,7 +71,7 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     console.error("Cannot parse code, invalid blurhash x, y component dimensions");
     return null;
   }
-  return {
+  const fields: VisionaryImageFields = {
     altText,
     bcc,
     blurhash,
@@ -80,4 +81,5 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     sourceHeight,
     sourceWidth,
   };
+  return fields;
 };

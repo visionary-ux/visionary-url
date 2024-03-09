@@ -1,9 +1,16 @@
+import { BASE_BLURHASH_DIMENSIONS } from "./constants";
 import { ImageFormatEnum } from "./enum";
 
-const BASE_BLURHASH_DIMENSIONS = 4;
-const regexBase64Url = /^[A-Za-z0-9_-]*$/;
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const compact = (items: any[]) => items.filter(Boolean);
+
+export const createUrl = (url: string): URL | null => {
+  try {
+    return new URL(url);
+  } catch (_) {
+    return null;
+  }
+};
 
 export const formatToContentType = (format: ImageFormatEnum) => {
   switch (format) {
@@ -18,7 +25,7 @@ export const formatToContentType = (format: ImageFormatEnum) => {
   }
 };
 
-export const isBase64UrlFormatted = (str = "") => regexBase64Url.test(str);
+export const isBase64UrlFormatted = (str = "") => /^[A-Za-z0-9_-]*$/.test(str);
 
 /**
  * This is purposely kept simple as sometimes cranking these values up results in a good image, other times not.
@@ -29,8 +36,8 @@ export const suggestedBlurhashComponentDimensions = (
   height: number
 ): [x: number, y: number] => {
   const aspectRatio = width / height;
-  let x = BASE_BLURHASH_DIMENSIONS,
-    y = BASE_BLURHASH_DIMENSIONS;
+  const x = BASE_BLURHASH_DIMENSIONS;
+  let y = BASE_BLURHASH_DIMENSIONS;
 
   // landscape
   if (aspectRatio >= 1.6) {
@@ -42,7 +49,8 @@ export const suggestedBlurhashComponentDimensions = (
 
 /**
  * Note: this function is not entirely accurate as 'unfactoring' can't determine order of x, y
- * (e.g. two blurhash strings with x,y components (3,4) and (4,3) will return the same result)
+ * (e.g. two blurhash strings with x,y components (3,4) and (4,3) will return the same result).
+ * We keep it here as a debugging tool; it's not used in the library.
  */
 export const extractBlurhashComponentDimensions = (blurhash: string) => {
   const sizeDigit = base83Chars(blurhash[0]);
@@ -56,11 +64,3 @@ export const extractBlurhashComponentDimensions = (blurhash: string) => {
 
 const base83Chars = (str: string) =>
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~".indexOf(str);
-
-export const createUrl = (url: string): URL | null => {
-  try {
-    return new URL(url);
-  } catch (_) {
-    return null;
-  }
-};

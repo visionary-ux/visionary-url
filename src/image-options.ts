@@ -24,7 +24,7 @@ export const generateOptionsString = (options: ImageOptions): string | null => {
   if (!options || typeof options !== "object") {
     return null;
   }
-  const tokenArr = [];
+  const tokenArr: Array<ImageTokenEnum | ImageFormatEnum | ImageSizeEnum> = [];
   if (options.debug) {
     tokenArr.push(ImageTokenEnum.DEBUG);
   }

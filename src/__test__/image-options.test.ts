@@ -13,6 +13,14 @@ describe(parseOptionsString.name, () => {
     expect(parsedOptions.size).toBe(ImageSizeEnum.xs);
   });
 
+  test("tests a size token (lg)", () => {
+    const optionsString = "lg";
+
+    const parsedOptions = parseOptionsString(optionsString);
+
+    expect(parsedOptions.size).toBe(ImageSizeEnum.lg);
+  });
+
   test("parses an options string with debug set", () => {
     const optionsString = "debug,xl";
 
