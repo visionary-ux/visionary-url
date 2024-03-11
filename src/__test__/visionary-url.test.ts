@@ -81,11 +81,11 @@ describe("visionary-url", () => {
     test("generates a URL with image options", () => {
       const url = generateVisionaryUrl(sampleFields, {
         download: true,
-        size: ImageSizeEnum.xs,
+        size: ImageSizeEnum.full,
       });
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,xs/image.jpg";
+        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,full/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
