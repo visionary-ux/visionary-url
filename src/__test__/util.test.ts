@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { ImageFormatToken } from "../enum";
-import { isImageSizeToken, tokeni } from "../token";
+import { isImageSizeToken } from "../token";
 import {
   compact,
   suggestedBlurhashComponentDimensions,
