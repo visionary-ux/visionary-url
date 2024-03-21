@@ -53,13 +53,13 @@ export interface VisionaryUrlParts {
 
 export interface VisionaryImage {
   fields: VisionaryImageFields;
-  options: ImageOptions;
+  options: VisionaryImageOptions;
 }
 
 /**
- * Details encoded in the second segment of the URL (after Visionary code)
+ * Details encoded in the second segment of a Visionary URL (after Visionary code)
  */
-export interface ImageOptions {
+export interface VisionaryImageOptions {
   debug?: boolean;
 
   /**
@@ -74,7 +74,7 @@ export interface ImageOptions {
 /**
  * Fields passed to generateVisionaryUrl()
  */
-export interface VisionaryUrlOptions extends ImageOptions {
+export interface VisionaryUrlOptions extends VisionaryImageOptions {
   /**
    * Specifies a custom endpoint
    */

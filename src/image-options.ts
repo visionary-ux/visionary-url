@@ -1,11 +1,9 @@
 import { ImageFormatToken, ImageSizeToken, UrlOptionToken } from "./enum";
-import { isDebugToken, isDownloadToken, isFormatString, isImageSizeToken } from "./token";
-import { ImageOptions } from "./types/visionary.types";
+import { isDebugToken, isDownloadToken, isImageFormatToken, isImageSizeToken } from "./token";
+import { VisionaryImageOptions } from "./types/visionary.types";
 
-export const parseOptionsString = (options = ""): ImageOptions => parseOptionTokens(options.split(","));
-
-export const parseOptionTokens = (optionTokens: string[] = []): ImageOptions => {
-  const returnOptions: ImageOptions = {};
+export const parseOptionTokens = (optionTokens: string[] = []): VisionaryImageOptions => {
+  const returnOptions: VisionaryImageOptions = {};
   for (const token of optionTokens) {
     if (isImageSizeToken(token)) {
       returnOptions.size = ImageSizeToken[token];
@@ -13,14 +11,14 @@ export const parseOptionTokens = (optionTokens: string[] = []): ImageOptions => 
       returnOptions.debug = true;
     } else if (isDownloadToken(token)) {
       returnOptions.download = true;
-    } else if (isFormatString(token)) {
+    } else if (isImageFormatToken(token)) {
       returnOptions.format = token;
     }
   }
   return returnOptions;
 };
 
-export const generateOptionsString = (options: ImageOptions): string | null => {
+export const generateOptionsString = (options: VisionaryImageOptions): string | null => {
   if (!options || typeof options !== "object") {
     return null;
   }
@@ -41,3 +39,6 @@ export const generateOptionsString = (options: ImageOptions): string | null => {
   }
   return tokenArr.length ? tokenArr.sort().join(",") : null;
 };
+
+export const parseOptionsString = (options = ""): VisionaryImageOptions =>
+  parseOptionTokens(options.split(","));

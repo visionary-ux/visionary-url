@@ -20,7 +20,6 @@ export enum ImageSizeToken {
   full = "full",
 }
 
-//  - not to be confused with `VisionaryUrlOptions` taken via generateVisionaryUrl
 export enum UrlOptionToken {
   DEBUG = "debug",
   DOWNLOAD = "download",

@@ -1,5 +1,5 @@
 import { ImageFormatToken, ImageSizeToken } from "./enum";
-import { ImageOptions } from "./types/visionary.types";
+import { VisionaryImageOptions } from "./types/visionary.types";
 
 /**
  * Defaults blurhash components to [4, 4] (or [4, 3] for landscape photos)
@@ -12,7 +12,7 @@ export const BASE_BLURHASH_DIMENSIONS = 4;
  */
 export const CDN_ENDPOINT = "https://cdn.visionary.cloud";
 
-export const DEFAULT_OPTIONS: ImageOptions = {
+export const DEFAULT_OPTIONS: VisionaryImageOptions = {
   debug: false,
   format: ImageFormatToken.AUTO,
   size: ImageSizeToken.lg,

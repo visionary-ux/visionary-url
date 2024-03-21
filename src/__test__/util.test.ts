@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { ImageFormatToken } from "../enum";
-import { isImageSizeToken, tokenizeOptionsString } from "../token";
+import { isImageSizeToken, tokeni } from "../token";
 import {
   compact,
   suggestedBlurhashComponentDimensions,
@@ -49,16 +49,6 @@ describe("Visionary URL utils", () => {
     test("returns false for invalid base64url values", () => {
       expect(isBase64UrlFormatted("YmFzZQ==")).toBe(false);
       expect(isBase64UrlFormatted("invalid!")).toBe(false);
-    });
-  });
-
-  describe(tokenizeOptionsString.name, () => {
-    test("can tokenize an options string", () => {
-      const optionsString = "debug,xl";
-
-      const tokens = tokenizeOptionsString(optionsString);
-
-      expect(tokens).toEqual(["debug", "xl"]);
     });
   });
 

@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { generateOptionsString, parseOptionsString } from "../image-options";
-import { ImageOptions } from "../types/visionary.types";
+import { VisionaryImageOptions } from "../types/visionary.types";
 
 describe(parseOptionsString.name, () => {
   test("parses an options string with size and format specified", () => {
@@ -75,8 +75,8 @@ describe(generateOptionsString.name, () => {
   });
 
   test("does not return options string for invalid options", () => {
-    expect(generateOptionsString(null as unknown as ImageOptions)).toBeNull();
-    expect(generateOptionsString("" as unknown as ImageOptions)).toBeNull();
-    expect(generateOptionsString({ notAnOption: true } as unknown as ImageOptions)).toBeNull();
+    expect(generateOptionsString(null as unknown as VisionaryImageOptions)).toBeNull();
+    expect(generateOptionsString("" as unknown as VisionaryImageOptions)).toBeNull();
+    expect(generateOptionsString({ notAnOption: true } as unknown as VisionaryImageOptions)).toBeNull();
   });
 });
