@@ -21,7 +21,7 @@ export const DEFAULT_OPTIONS: ImageOptions = {
 /**
  * Maps bootstrap-inspired size codes to pixels
  */
-export const IMAGE_SIZES: Partial<Record<ImageSizeEnum, number>> = {
+export const IMAGE_SIZES: Record<ImageSizeEnum, number> = {
   [ImageSizeEnum.xs]: 160,
   [ImageSizeEnum.sm]: 320,
   [ImageSizeEnum.md]: 640,
@@ -30,6 +30,7 @@ export const IMAGE_SIZES: Partial<Record<ImageSizeEnum, number>> = {
   [ImageSizeEnum.xxl]: 2560,
   [ImageSizeEnum["4k"]]: 3840,
   [ImageSizeEnum["5k"]]: 5120,
+  [ImageSizeEnum.full]: 0,
 };
 
 export const IMAGE_SIZE_LOOKUP: Record<number, ImageSizeEnum> = Object.keys(IMAGE_SIZES).reduce(
