@@ -1,11 +1,11 @@
-export enum ImageFormatEnum {
+export enum ImageFormatToken {
   AUTO = "auto",
   AVIF = "avif",
   JPEG = "jpeg",
   WEBP = "webp",
 }
 
-export enum ImageSizeEnum {
+export enum ImageSizeToken {
   xs = "xs",
   sm = "sm",
   md = "md",
@@ -20,7 +20,8 @@ export enum ImageSizeEnum {
   full = "full",
 }
 
-export enum ImageTokenEnum {
+//  - not to be confused with `VisionaryUrlOptions` taken via generateVisionaryUrl
+export enum UrlOptionToken {
   DEBUG = "debug",
   DOWNLOAD = "download",
 }

@@ -1,4 +1,4 @@
-import { ImageFormatEnum, ImageSizeEnum } from "../enum";
+import { ImageFormatToken, ImageSizeToken } from "../enum";
 
 /**
  * Image metadata fields encoded in a Visionary URL
@@ -67,14 +67,14 @@ export interface ImageOptions {
    * (e.g. content-disposition: attachment)
    */
   download?: boolean;
-  format?: ImageFormatEnum;
-  size?: ImageSizeEnum;
+  format?: ImageFormatToken;
+  size?: ImageSizeToken;
 }
 
 /**
  * Fields passed to generateVisionaryUrl()
  */
-export interface GenerateVisionaryUrlOptions extends ImageOptions {
+export interface VisionaryUrlOptions extends ImageOptions {
   /**
    * Specifies a custom endpoint
    */

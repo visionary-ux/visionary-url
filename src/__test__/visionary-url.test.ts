@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { VisionaryImageFields } from "../types/visionary.types";
-import { ImageFormatEnum, ImageSizeEnum } from "../enum";
+import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { InvalidEndpoint } from "../error";
 import { generateVisionaryUrl, parseVisionaryString, parseVisionaryUrl } from "../visionary-url";
 
@@ -34,8 +34,8 @@ describe("visionary-url", () => {
       const { fields, options } = parseVisionaryUrl(urlWithOptions)!;
 
       expect(fields.fileId).toBe("vb87s1");
-      expect(options.size).toBe(ImageSizeEnum["4k"]);
-      expect(options.format).toBe(ImageFormatEnum.AVIF);
+      expect(options.size).toBe(ImageSizeToken["4k"]);
+      expect(options.format).toBe(ImageFormatToken.AVIF);
       expect(Object.keys(options).length).toBe(2);
     });
 
@@ -81,7 +81,7 @@ describe("visionary-url", () => {
     test("generates a URL with image options", () => {
       const url = generateVisionaryUrl(sampleFields, {
         download: true,
-        size: ImageSizeEnum.full,
+        size: ImageSizeToken.full,
       });
 
       const expectedUrl =
@@ -94,7 +94,7 @@ describe("visionary-url", () => {
       const url = generateVisionaryUrl(sampleFields, {
         download: true,
         filename: "flowers.jpg",
-        size: ImageSizeEnum["4k"],
+        size: ImageSizeToken["4k"],
       });
 
       const expectedUrl =
@@ -158,8 +158,8 @@ describe("visionary-url", () => {
       const { fields, options } = parseVisionaryString(inputString)!;
 
       expect(fields.fileId).toBe("vb87s1");
-      expect(options.size).toBe(ImageSizeEnum["sm"]);
-      expect(options.format).toBe(ImageFormatEnum.WEBP);
+      expect(options.size).toBe(ImageSizeToken["sm"]);
+      expect(options.format).toBe(ImageFormatToken.WEBP);
     });
 
     test("parses a Visionary code", () => {

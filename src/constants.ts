@@ -1,4 +1,4 @@
-import { ImageFormatEnum, ImageSizeEnum } from "./enum";
+import { ImageFormatToken, ImageSizeToken } from "./enum";
 import { ImageOptions } from "./types/visionary.types";
 
 /**
@@ -14,35 +14,35 @@ export const CDN_ENDPOINT = "https://cdn.visionary.cloud";
 
 export const DEFAULT_OPTIONS: ImageOptions = {
   debug: false,
-  format: ImageFormatEnum.AUTO,
-  size: ImageSizeEnum.lg,
+  format: ImageFormatToken.AUTO,
+  size: ImageSizeToken.lg,
 };
 
 /**
  * Maps bootstrap-inspired size codes to pixels
  */
-export const IMAGE_SIZES: Record<ImageSizeEnum, number> = {
-  [ImageSizeEnum.xs]: 160,
-  [ImageSizeEnum.sm]: 320,
-  [ImageSizeEnum.md]: 640,
-  [ImageSizeEnum.lg]: 1280,
-  [ImageSizeEnum.xl]: 1920,
-  [ImageSizeEnum.xxl]: 2560,
-  [ImageSizeEnum["4k"]]: 3840,
-  [ImageSizeEnum["5k"]]: 5120,
-  [ImageSizeEnum.full]: 0,
+export const IMAGE_SIZES: Record<ImageSizeToken, number> = {
+  [ImageSizeToken.xs]: 160,
+  [ImageSizeToken.sm]: 320,
+  [ImageSizeToken.md]: 640,
+  [ImageSizeToken.lg]: 1280,
+  [ImageSizeToken.xl]: 1920,
+  [ImageSizeToken.xxl]: 2560,
+  [ImageSizeToken["4k"]]: 3840,
+  [ImageSizeToken["5k"]]: 5120,
+  [ImageSizeToken.full]: 0,
 };
 
-export const IMAGE_SIZE_LOOKUP: Record<number, ImageSizeEnum> = Object.keys(IMAGE_SIZES).reduce(
+export const IMAGE_SIZE_LOOKUP: Record<number, ImageSizeToken> = Object.keys(IMAGE_SIZES).reduce(
   (obj, key) => {
-    const keyEnum = key as ImageSizeEnum;
+    const keyEnum = key as ImageSizeToken;
     const numericalValue = IMAGE_SIZES[keyEnum];
     if (numericalValue) {
       obj[numericalValue] = keyEnum;
     }
     return obj;
   },
-  {} as Record<number, ImageSizeEnum>
+  {} as Record<number, ImageSizeToken>
 );
 
 /**

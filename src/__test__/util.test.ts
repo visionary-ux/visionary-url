@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { ImageFormatEnum } from "../enum";
+import { ImageFormatToken } from "../enum";
 import { isImageSizeToken, tokenizeOptionsString } from "../token";
 import {
   compact,
@@ -27,14 +27,14 @@ describe("Visionary URL utils", () => {
 
   describe(formatToContentType.name, () => {
     test("returns proper content type", () => {
-      const result = formatToContentType(ImageFormatEnum.JPEG);
+      const result = formatToContentType(ImageFormatToken.JPEG);
 
       expect(result.contentType).toBe("image/jpeg");
     });
 
     test("throws on unknown format", () => {
       expect(() => {
-        formatToContentType("haha" as ImageFormatEnum);
+        formatToContentType("haha" as ImageFormatToken);
       }).toThrow(/unknown format/);
     });
   });

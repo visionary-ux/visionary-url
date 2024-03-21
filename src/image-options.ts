@@ -1,4 +1,4 @@
-import { ImageFormatEnum, ImageSizeEnum, ImageTokenEnum } from "./enum";
+import { ImageFormatToken, ImageSizeToken, UrlOptionToken } from "./enum";
 import { isDebugToken, isDownloadToken, isFormatString, isImageSizeToken } from "./token";
 import { ImageOptions } from "./types/visionary.types";
 
@@ -8,7 +8,7 @@ export const parseOptionTokens = (optionTokens: string[] = []): ImageOptions => 
   const returnOptions: ImageOptions = {};
   for (const token of optionTokens) {
     if (isImageSizeToken(token)) {
-      returnOptions.size = ImageSizeEnum[token];
+      returnOptions.size = ImageSizeToken[token];
     } else if (isDebugToken(token)) {
       returnOptions.debug = true;
     } else if (isDownloadToken(token)) {
@@ -24,15 +24,15 @@ export const generateOptionsString = (options: ImageOptions): string | null => {
   if (!options || typeof options !== "object") {
     return null;
   }
-  const tokenArr: Array<ImageTokenEnum | ImageFormatEnum | ImageSizeEnum> = [];
+  const tokenArr: Array<ImageFormatToken | ImageSizeToken | UrlOptionToken> = [];
   if (options.debug) {
-    tokenArr.push(ImageTokenEnum.DEBUG);
+    tokenArr.push(UrlOptionToken.DEBUG);
   }
   if (options.download) {
-    tokenArr.push(ImageTokenEnum.DOWNLOAD);
+    tokenArr.push(UrlOptionToken.DOWNLOAD);
   }
   if (options.format) {
-    if (options.format !== ImageFormatEnum.AUTO) {
+    if (options.format !== ImageFormatToken.AUTO) {
       tokenArr.push(options.format);
     }
   }
