@@ -5,7 +5,7 @@ import { compact, createUrl, isBase64UrlFormatted } from "./util";
 import { generateVisionaryCode, parseVisionaryCode } from "./visionary-code";
 
 import {
-  GenerateVisionaryUrlOptions,
+  VisionaryUrlOptions,
   VisionaryImage,
   VisionaryImageFields,
   VisionaryUrlParts,
@@ -64,7 +64,7 @@ export const parseVisionaryUrl = (url: string): VisionaryImage | null => {
 
 export const generateVisionaryUrl = (
   fields: VisionaryImageFields,
-  options?: GenerateVisionaryUrlOptions
+  options?: VisionaryUrlOptions
 ): string | null => {
   const visionaryCode = generateVisionaryCode(fields);
   if (visionaryCode instanceof Error) {

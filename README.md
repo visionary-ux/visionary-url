@@ -1,4 +1,8 @@
-**Visionary URL** is a lightweight library for generating image URLs with embedded placeholder data (image dimensions, background color, blurhash).
+**Visionary URL** is a lightweight Typescript library for generating image URLs with built-in Blurhash placeholders.
+
+![NPM version](https://img.shields.io/npm/v/visionary-url?style=flat-square&color=528987) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/visionary-cloud/visionary-url/.github%2Fworkflows%2Fci-cd-workflow.yml?branch=master&style=flat-square)
+ ![NPM bundle size](https://img.shields.io/bundlephobia/min/visionary-url?style=flat-square&color=blue)
+
 
 
 ## Getting started

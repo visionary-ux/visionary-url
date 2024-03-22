@@ -9,4 +9,9 @@ export {
   isBase64UrlFormatted,
   suggestedBlurhashComponentDimensions,
 } from "../src/util";
-export * from "../src/types/visionary.types";
+export type {
+  VisionaryImage,
+  VisionaryImageFields,
+  VisionaryImageOptions,
+  VisionaryUrlOptions,
+} from "../src/types/visionary.types";

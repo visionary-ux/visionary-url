@@ -1,5 +1,5 @@
 import { BASE_BLURHASH_DIMENSIONS } from "./constants";
-import { ImageFormatEnum } from "./enum";
+import { ImageFormatToken } from "./enum";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const compact = (items: any[]) => items.filter(Boolean);
@@ -12,13 +12,13 @@ export const createUrl = (url: string): URL | null => {
   }
 };
 
-export const formatToContentType = (format: ImageFormatEnum) => {
+export const formatToContentType = (format: ImageFormatToken) => {
   switch (format) {
-    case ImageFormatEnum.AVIF:
+    case ImageFormatToken.AVIF:
       return { contentType: "image/avif", extension: "avif" };
-    case ImageFormatEnum.JPEG:
+    case ImageFormatToken.JPEG:
       return { contentType: "image/jpeg", extension: "jpg" };
-    case ImageFormatEnum.WEBP:
+    case ImageFormatToken.WEBP:
       return { contentType: "image/webp", extension: "webp" };
     default:
       throw new Error(`formatToContentType: unknown format ${format}`);

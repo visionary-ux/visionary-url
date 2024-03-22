@@ -1,8 +1,8 @@
 import { describe, expect, test } from "vitest";
 
-import { ImageFormatEnum, ImageSizeEnum } from "../enum";
+import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { generateOptionsString, parseOptionsString } from "../image-options";
-import { ImageOptions } from "../types/visionary.types";
+import { VisionaryImageOptions } from "../types/visionary.types";
 
 describe(parseOptionsString.name, () => {
   test("parses an options string with size and format specified", () => {
@@ -10,7 +10,7 @@ describe(parseOptionsString.name, () => {
 
     const parsedOptions = parseOptionsString(optionsString);
 
-    expect(parsedOptions.size).toBe(ImageSizeEnum.xs);
+    expect(parsedOptions.size).toBe(ImageSizeToken.xs);
   });
 
   test("tests a size token (lg)", () => {
@@ -18,7 +18,7 @@ describe(parseOptionsString.name, () => {
 
     const parsedOptions = parseOptionsString(optionsString);
 
-    expect(parsedOptions.size).toBe(ImageSizeEnum.lg);
+    expect(parsedOptions.size).toBe(ImageSizeToken.lg);
   });
 
   test("parses an options string with debug set", () => {
@@ -27,7 +27,7 @@ describe(parseOptionsString.name, () => {
     const parsedOptions = parseOptionsString(optionsString);
 
     expect(parsedOptions.debug).toBe(true);
-    expect(parsedOptions.size).toBe(ImageSizeEnum.xl);
+    expect(parsedOptions.size).toBe(ImageSizeToken.xl);
   });
 
   test("parses an options string with download set", () => {
@@ -36,7 +36,7 @@ describe(parseOptionsString.name, () => {
     const parsedOptions = parseOptionsString(optionsString);
 
     expect(parsedOptions.download).toBe(true);
-    expect(parsedOptions.size).toBe(ImageSizeEnum["4k"]);
+    expect(parsedOptions.size).toBe(ImageSizeToken["4k"]);
   });
 
   test("parses an options string with format set", () => {
@@ -59,24 +59,24 @@ describe(generateOptionsString.name, () => {
   test("generates a sorted options string from options", () => {
     const optionsString1 = generateOptionsString({
       download: true,
-      format: ImageFormatEnum.WEBP,
-      size: ImageSizeEnum.sm,
+      format: ImageFormatToken.WEBP,
+      size: ImageSizeToken.sm,
     });
 
     expect(optionsString1).toBe("download,sm,webp");
 
     const optionsString2 = generateOptionsString({
       debug: true,
-      format: ImageFormatEnum.AVIF,
-      size: ImageSizeEnum["5k"],
+      format: ImageFormatToken.AVIF,
+      size: ImageSizeToken["5k"],
     });
 
     expect(optionsString2).toBe("5k,avif,debug");
   });
 
   test("does not return options string for invalid options", () => {
-    expect(generateOptionsString(null as unknown as ImageOptions)).toBeNull();
-    expect(generateOptionsString("" as unknown as ImageOptions)).toBeNull();
-    expect(generateOptionsString({ notAnOption: true } as unknown as ImageOptions)).toBeNull();
+    expect(generateOptionsString(null as unknown as VisionaryImageOptions)).toBeNull();
+    expect(generateOptionsString("" as unknown as VisionaryImageOptions)).toBeNull();
+    expect(generateOptionsString({ notAnOption: true } as unknown as VisionaryImageOptions)).toBeNull();
   });
 });

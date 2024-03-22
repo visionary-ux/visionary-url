@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 
-import { ImageFormatEnum } from "../enum";
-import { isImageSizeToken, tokenizeOptionsString } from "../token";
+import { ImageFormatToken } from "../enum";
+import { isImageSizeToken } from "../token";
 import {
   compact,
   suggestedBlurhashComponentDimensions,
@@ -27,14 +27,14 @@ describe("Visionary URL utils", () => {
 
   describe(formatToContentType.name, () => {
     test("returns proper content type", () => {
-      const result = formatToContentType(ImageFormatEnum.JPEG);
+      const result = formatToContentType(ImageFormatToken.JPEG);
 
       expect(result.contentType).toBe("image/jpeg");
     });
 
     test("throws on unknown format", () => {
       expect(() => {
-        formatToContentType("haha" as ImageFormatEnum);
+        formatToContentType("haha" as ImageFormatToken);
       }).toThrow(/unknown format/);
     });
   });
@@ -49,16 +49,6 @@ describe("Visionary URL utils", () => {
     test("returns false for invalid base64url values", () => {
       expect(isBase64UrlFormatted("YmFzZQ==")).toBe(false);
       expect(isBase64UrlFormatted("invalid!")).toBe(false);
-    });
-  });
-
-  describe(tokenizeOptionsString.name, () => {
-    test("can tokenize an options string", () => {
-      const optionsString = "debug,xl";
-
-      const tokens = tokenizeOptionsString(optionsString);
-
-      expect(tokens).toEqual(["debug", "xl"]);
     });
   });
 
