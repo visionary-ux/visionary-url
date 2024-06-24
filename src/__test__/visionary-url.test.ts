@@ -10,9 +10,9 @@ const sampleFields: VisionaryImageFields = {
   blurhashX: 4,
   blurhashY: 4,
   bcc: "110044",
-  fileId: "vb87s1",
   sourceHeight: 1200,
   sourceWidth: 1600,
+  url: "vb87s1",
 };
 
 const sampleUrl =
@@ -23,7 +23,7 @@ describe("visionary-url", () => {
     test("parses a Visionary URL", () => {
       const { fields, options } = parseVisionaryUrl(sampleUrl)!;
 
-      expect(fields.fileId).toBe("vb87s1");
+      expect(fields.url).toBe("vb87s1");
       expect(Object.keys(options).length).toBe(0);
     });
 
@@ -33,7 +33,7 @@ describe("visionary-url", () => {
 
       const { fields, options } = parseVisionaryUrl(urlWithOptions)!;
 
-      expect(fields.fileId).toBe("vb87s1");
+      expect(fields.url).toBe("vb87s1");
       expect(options.size).toBe(ImageSizeToken["4k"]);
       expect(options.format).toBe(ImageFormatToken.AVIF);
       expect(Object.keys(options).length).toBe(2);
@@ -114,9 +114,9 @@ describe("visionary-url", () => {
       expect(url).toBe(expectedUrl);
     });
 
-    test("generates a URL with only fileId/width/height (no bg color or blurhash)", () => {
+    test("generates a URL with only url/width/height (no bg color or blurhash)", () => {
       const url = generateVisionaryUrl({
-        fileId: "https://iss.space/earth.jpg",
+        url: "https://iss.space/earth.jpg",
         sourceWidth: 400,
         sourceHeight: 300,
       });
@@ -157,7 +157,7 @@ describe("visionary-url", () => {
 
       const { fields, options } = parseVisionaryString(inputString)!;
 
-      expect(fields.fileId).toBe("vb87s1");
+      expect(fields.url).toBe("vb87s1");
       expect(options.size).toBe(ImageSizeToken["sm"]);
       expect(options.format).toBe(ImageFormatToken.WEBP);
     });
@@ -168,7 +168,7 @@ describe("visionary-url", () => {
 
       const { fields } = parseVisionaryString(inputString)!;
 
-      expect(fields.fileId).toBe("FzHyI1RXO2");
+      expect(fields.url).toBe("FzHyI1RXO2");
       expect(fields.bcc).toBe("d3be80");
       expect(fields.blurhashX).toBe(4);
       expect(fields.blurhashY).toBe(4);

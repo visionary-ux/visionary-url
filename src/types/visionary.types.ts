@@ -31,11 +31,6 @@ export interface VisionaryImageFields {
   blurhashY?: number;
 
   /**
-   * Visionary File ID or Image URL
-   */
-  fileId: string;
-
-  /**
    * Height of original upload image (also max height)
    */
   sourceHeight: number;
@@ -46,10 +41,9 @@ export interface VisionaryImageFields {
   sourceWidth: number;
 
   /**
-   * Image URL or Visionary code
-   *
+   * Image URL or Visionary File ID
    */
-  src: string;
+  url: string;
 }
 
 export interface VisionaryUrlParts {

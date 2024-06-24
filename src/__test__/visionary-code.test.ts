@@ -11,22 +11,22 @@ describe("visionary-code", () => {
    * parseVisionaryCode
    */
   describe(parseVisionaryCode.name, () => {
-    test("parses a barebones code with fileId and image dimensions", () => {
+    test("parses a barebones code with url and image dimensions only", () => {
       const code = "aW1hZ2U6MTAwMDEhODAwITYwMA";
 
       const fields = parseVisionaryCode(code);
 
-      expect(fields?.fileId).toBe("image:10001");
+      expect(fields?.url).toBe("image:10001");
       expect(fields?.sourceWidth).toBe(800);
       expect(fields?.sourceHeight).toBe(600);
     });
 
-    test("parses a code with fileId, image dimensions, and background color code", () => {
+    test("parses a code with url, image dimensions, and background color code", () => {
       const code = "aW1hZ2U6MTAwMDEhODAwITYwMCEjQkVFRUVG";
 
       const fields = parseVisionaryCode(code);
 
-      expect(fields?.fileId).toBe("image:10001");
+      expect(fields?.url).toBe("image:10001");
       expect(fields?.sourceWidth).toBe(800);
       expect(fields?.sourceHeight).toBe(600);
       expect(fields?.bcc).toBe("#BEEEEF");
@@ -37,7 +37,7 @@ describe("visionary-code", () => {
 
       const fields = parseVisionaryCode(code);
 
-      expect(fields?.fileId).toBe("image:10001");
+      expect(fields?.url).toBe("image:10001");
       expect(fields?.sourceWidth).toBe(800);
       expect(fields?.sourceHeight).toBe(600);
       expect(fields?.bcc).toBe("#BEEEEF");
@@ -46,7 +46,7 @@ describe("visionary-code", () => {
       expect(fields?.blurhashY).toBe(4);
     });
 
-    test("parses a code with a URL as fileId", () => {
+    test("parses a code containing a URL", () => {
       const code =
         "aHR0cDovL2kuaW1hZ2VjZG40Mi5zcGFjZS9wdWJsaWMvaW1hZ2UtMTEuanBnITQzMiE2NDEhI2JhY2NhZSFCT0JnOV5-cS07fnE_Ynh1ITMhMg";
 
@@ -54,7 +54,7 @@ describe("visionary-code", () => {
 
       expect(fields?.sourceWidth).toBe(432);
       expect(fields?.bcc).toBe("#baccae");
-      expect(fields?.fileId).toBe("http://i.imagecdn42.space/public/image-11.jpg");
+      expect(fields?.url).toBe("http://i.imagecdn42.space/public/image-11.jpg");
       expect(fields?.blurhash).toBe("BOBg9^~q-;~q?bxu");
       expect(fields?.blurhashX).toBe(3);
       expect(fields?.blurhashY).toBe(2);
@@ -84,9 +84,9 @@ describe("visionary-code", () => {
         blurhash: "blurhashvalllue",
         blurhashX: 4,
         blurhashY: 3,
-        fileId: "jk92",
         sourceHeight: 100,
         sourceWidth: 200,
+        url: "jk92",
       };
 
       const code = generateVisionaryCode(fields);
@@ -103,9 +103,9 @@ describe("visionary-code", () => {
         blurhashX: 3,
         blurhashY: 3,
         bcc: "be3e3f",
-        fileId: "jk93",
         sourceHeight: 100,
         sourceWidth: 100,
+        url: "jk93",
       };
 
       const code = generateVisionaryCode(fields);
@@ -118,13 +118,13 @@ describe("visionary-code", () => {
 
     test("generates a barebones code (with only imageId and dimensions)", () => {
       const fields: VisionaryImageFields = {
-        fileId: "42",
         sourceHeight: 300,
         sourceWidth: 300,
+        url: "42",
       };
 
       const expectedVisionaryCode = encodeBase64Url(
-        [fields.fileId, fields.sourceWidth, fields.sourceHeight].join(V_CODE_SEPARATOR)
+        [fields.url, fields.sourceWidth, fields.sourceHeight].join(V_CODE_SEPARATOR)
       );
 
       const visionaryCode = generateVisionaryCode(fields);
@@ -135,9 +135,9 @@ describe("visionary-code", () => {
     test("generates a code with imageId, dimensions, and bcc (no blurhash)", () => {
       const fields: VisionaryImageFields = {
         bcc: "ff6699",
-        fileId: "42",
         sourceHeight: 300,
         sourceWidth: 300,
+        url: "42",
       };
 
       const visionaryCode = generateVisionaryCode(fields);
