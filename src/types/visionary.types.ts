@@ -46,7 +46,7 @@ export interface VisionaryImageFields {
   sourceWidth: number;
 
   /**
-   * Image source URL or Visionary code
+   * Image URL or Visionary code
    *
    */
   src: string;

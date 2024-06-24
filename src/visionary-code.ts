@@ -1,7 +1,7 @@
 import { decode as decodeBase64Url, encode as encodeBase64Url } from "universal-base64url";
 
 import { V_CODE_SEPARATOR } from "./constants";
-import { isBase64UrlFormatted } from "./util";
+import { isBase64UrlEncoded } from "./util";
 
 import { VisionaryImageFields } from "./types/visionary.types";
 
@@ -40,14 +40,13 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     return null;
   }
   const sanitizedCode = code.trim();
-  if (!sanitizedCode.length || !isBase64UrlFormatted(sanitizedCode)) {
+  if (!sanitizedCode.length || !isBase64UrlEncoded(sanitizedCode)) {
     return null;
   }
   const imageDataStr = decodeBase64Url(sanitizedCode);
   if (!imageDataStr) {
     return null;
   }
-  // const fields = imageData.split(V_CODE_SEPARATOR);
   const imageData = imageDataStr.split(V_CODE_SEPARATOR);
   // codes must contain at a minimum: fileId, width, height
   if (imageData.length < 3) {

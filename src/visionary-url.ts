@@ -1,7 +1,7 @@
 import { CDN_ENDPOINT } from "./constants";
 import { InvalidEndpoint } from "./error";
 import { generateOptionsString, parseOptionTokens } from "./image-options";
-import { compact, createUrl, isBase64UrlFormatted } from "./util";
+import { compact, createUrl, isBase64UrlEncoded } from "./util";
 import { generateVisionaryCode, parseVisionaryCode } from "./visionary-code";
 
 import {
@@ -16,7 +16,7 @@ import {
  * @param visionaryCodeOrUrl string which represents a Visionary Code or Visionary URL
  */
 export const parseVisionaryString = (visionaryCodeOrUrl: string): VisionaryImage | null => {
-  const isFormattedAsCode = isBase64UrlFormatted(visionaryCodeOrUrl);
+  const isFormattedAsCode = isBase64UrlEncoded(visionaryCodeOrUrl);
   if (isFormattedAsCode) {
     const fields = parseVisionaryCode(visionaryCodeOrUrl);
     if (fields) {
@@ -107,10 +107,10 @@ const extractUrlParts = (inputUrl: string): VisionaryUrlParts | null => {
       throw new Error("Unrecognized URL");
     }
     const code = pathParts[1].trim();
-    if (!code.length || !isBase64UrlFormatted(code)) {
+    if (!code.length || !isBase64UrlEncoded(code)) {
       throw new Error("URL is not formatted as base64url");
     }
-    // Options defined in URL
+    // Options specified
     if (pathParts.length === 4) {
       const optionTokens = pathParts[2].split(",");
       return {
@@ -118,7 +118,7 @@ const extractUrlParts = (inputUrl: string): VisionaryUrlParts | null => {
         optionTokens,
       };
     }
-    // Options not defined in URL
+    // Options not specified
     if (pathParts.length === 3) {
       return {
         code,

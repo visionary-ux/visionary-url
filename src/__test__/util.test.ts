@@ -6,7 +6,7 @@ import {
   compact,
   suggestedBlurhashComponentDimensions,
   formatToContentType,
-  isBase64UrlFormatted,
+  isBase64UrlEncoded,
   extractBlurhashComponentDimensions,
 } from "../util";
 
@@ -39,16 +39,16 @@ describe("Visionary URL utils", () => {
     });
   });
 
-  describe(isBase64UrlFormatted.name, () => {
+  describe(isBase64UrlEncoded.name, () => {
     test("returns true for valid base64url values", () => {
-      expect(isBase64UrlFormatted("dmlzaW9uYXJ5")).toBe(true);
+      expect(isBase64UrlEncoded("dmlzaW9uYXJ5")).toBe(true);
 
-      expect(isBase64UrlFormatted("dGhpcyBpcyBhIHZhbGlkIGJhc2U2NHVybCB2YWx1ZSBzaXI")).toBe(true);
+      expect(isBase64UrlEncoded("dGhpcyBpcyBhIHZhbGlkIGJhc2U2NHVybCB2YWx1ZSBzaXI")).toBe(true);
     });
 
     test("returns false for invalid base64url values", () => {
-      expect(isBase64UrlFormatted("YmFzZQ==")).toBe(false);
-      expect(isBase64UrlFormatted("invalid!")).toBe(false);
+      expect(isBase64UrlEncoded("YmFzZQ==")).toBe(false);
+      expect(isBase64UrlEncoded("invalid!")).toBe(false);
     });
   });
 

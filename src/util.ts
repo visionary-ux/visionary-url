@@ -25,7 +25,7 @@ export const formatToContentType = (format: ImageFormatToken) => {
   }
 };
 
-export const isBase64UrlFormatted = (str = "") => /^[A-Za-z0-9_-]*$/.test(str);
+export const isBase64UrlEncoded = (str = "") => /^[A-Za-z0-9_-]*$/.test(str);
 
 /**
  * This is purposely kept simple as sometimes cranking these values up results in a good image, other times not.

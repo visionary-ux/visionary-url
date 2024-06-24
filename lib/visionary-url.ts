@@ -6,7 +6,7 @@ export { parseOptionsString } from "../src/image-options";
 export * from "../src/token";
 export {
   formatToContentType,
-  isBase64UrlFormatted,
+  isBase64UrlEncoded,
   suggestedBlurhashComponentDimensions,
 } from "../src/util";
 export type {
