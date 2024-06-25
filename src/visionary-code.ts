@@ -1,7 +1,7 @@
 import { decode as decodeBase64Url, encode as encodeBase64Url } from "universal-base64url";
 
 import { V_CODE_SEPARATOR } from "./constants";
-import { isBase64UrlFormatted } from "./util";
+import { isBase64UrlEncoded } from "./util";
 
 import { VisionaryImageFields } from "./types/visionary.types";
 
@@ -9,12 +9,12 @@ import { VisionaryImageFields } from "./types/visionary.types";
  * Generates a Visionary image code
  */
 export const generateVisionaryCode = (fields: VisionaryImageFields): string | Error => {
-  const { altText, bcc, blurhash, blurhashX, blurhashY, fileId, sourceHeight, sourceWidth } = fields;
-  if (!fileId || !sourceWidth || !sourceHeight) {
-    return new Error("Cannot construct visionary code: missing required fileId/width/height");
+  const { altText, bcc, blurhash, blurhashX, blurhashY, sourceHeight, sourceWidth, url } = fields;
+  if (!url || !sourceWidth || !sourceHeight) {
+    return new Error("Cannot construct visionary code: missing required url/width/height");
   }
   // minimum needed image placeholder information
-  const visionaryComponents = [fileId, sourceWidth, sourceHeight];
+  const visionaryComponents = [url, sourceWidth, sourceHeight];
   if (!bcc) {
     return joinAndEncodeComponents(visionaryComponents);
   }
@@ -40,22 +40,21 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     return null;
   }
   const sanitizedCode = code.trim();
-  if (!sanitizedCode.length || !isBase64UrlFormatted(sanitizedCode)) {
+  if (!sanitizedCode.length || !isBase64UrlEncoded(sanitizedCode)) {
     return null;
   }
   const imageDataStr = decodeBase64Url(sanitizedCode);
   if (!imageDataStr) {
     return null;
   }
-  // const fields = imageData.split(V_CODE_SEPARATOR);
   const imageData = imageDataStr.split(V_CODE_SEPARATOR);
-  // codes must contain at a minimum: fileId, width, height
+  // codes must contain at a minimum: url, width, height
   if (imageData.length < 3) {
     return null;
   }
-  const [fileIdInput, widthInput, heightInput, bcc, blurhash, bhX, bhY, altText] = imageData;
-  const fileId = fileIdInput.trim();
-  if (!fileId.length) {
+  const [urlInput, widthInput, heightInput, bcc, blurhash, bhX, bhY, altText] = imageData;
+  const url = urlInput.trim();
+  if (!url.length) {
     console.error("Cannot parse code, empty file id");
     return null;
   }
@@ -77,9 +76,9 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     blurhash,
     blurhashX,
     blurhashY,
-    fileId,
     sourceHeight,
     sourceWidth,
+    url,
   };
   return fields;
 };
