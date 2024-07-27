@@ -7,10 +7,10 @@ import { VisionaryImageOptions } from "./types/visionary.types";
 export const BASE_BLURHASH_DIMENSIONS = 4;
 
 /**
- * Default CDN base URL.
+ * Default endpoint for generating Visionary URLs
  * - Can be overridden in the `options` field of generateVisionaryUrl()
  */
-export const CDN_ENDPOINT = "https://cdn.visionary.cloud";
+export const DEFAULT_ENDPOINT = "https://link.visionary.cloud";
 
 export const DEFAULT_OPTIONS: VisionaryImageOptions = {
   debug: false,

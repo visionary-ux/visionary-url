@@ -48,7 +48,7 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     return null;
   }
   const imageData = imageDataStr.split(V_CODE_SEPARATOR);
-  // codes must contain at a minimum: url, width, height
+  // Visionary codes must contain at a minimum: url, width, height
   if (imageData.length < 3) {
     return null;
   }

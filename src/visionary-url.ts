@@ -1,4 +1,4 @@
-import { CDN_ENDPOINT } from "./constants";
+import { DEFAULT_ENDPOINT } from "./constants";
 import { InvalidEndpoint } from "./error";
 import { generateOptionsString, parseOptionTokens } from "./image-options";
 import { compact, createUrl, isBase64UrlEncoded } from "./util";
@@ -81,7 +81,7 @@ export const generateVisionaryUrl = (
     }
   }
   if (!urlEndpoint) {
-    urlEndpoint = createUrl(CDN_ENDPOINT) as URL;
+    urlEndpoint = createUrl(DEFAULT_ENDPOINT) as URL;
   }
   const urlParts = [urlEndpoint.origin, "image", visionaryCode];
   const optionsString = options ? generateOptionsString(options) : null;
