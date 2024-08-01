@@ -1,11 +1,11 @@
-import { CDN_ENDPOINT } from "./constants";
+import { DEFAULT_ENDPOINT } from "./constants";
 import { InvalidEndpoint } from "./error";
 import { generateOptionsString, parseOptionTokens } from "./image-options";
 import { compact, createUrl, isBase64UrlEncoded } from "./util";
 import { generateVisionaryCode, parseVisionaryCode } from "./visionary-code";
 
 import {
-  VisionaryUrlOptions,
+  GenerateUrlOptions,
   VisionaryImage,
   VisionaryImageFields,
   VisionaryUrlParts,
@@ -64,7 +64,7 @@ export const parseVisionaryUrl = (url: string): VisionaryImage | null => {
 
 export const generateVisionaryUrl = (
   fields: VisionaryImageFields,
-  options?: VisionaryUrlOptions
+  options?: GenerateUrlOptions
 ): string | null => {
   const visionaryCode = generateVisionaryCode(fields);
   if (visionaryCode instanceof Error) {
@@ -81,7 +81,7 @@ export const generateVisionaryUrl = (
     }
   }
   if (!urlEndpoint) {
-    urlEndpoint = createUrl(CDN_ENDPOINT) as URL;
+    urlEndpoint = createUrl(DEFAULT_ENDPOINT) as URL;
   }
   const urlParts = [urlEndpoint.origin, "image", visionaryCode];
   const optionsString = options ? generateOptionsString(options) : null;

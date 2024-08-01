@@ -16,7 +16,7 @@ const sampleFields: VisionaryImageFields = {
 };
 
 const sampleUrl =
-  "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/strawberries.jpg";
+  "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/strawberries.jpg";
 
 describe("visionary-url", () => {
   describe(parseVisionaryUrl.name, () => {
@@ -29,7 +29,7 @@ describe("visionary-url", () => {
 
     test("parses a Visionary URL with options", () => {
       const urlWithOptions =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k,avif/strawberries.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k,avif/strawberries.jpg";
 
       const { fields, options } = parseVisionaryUrl(urlWithOptions)!;
 
@@ -51,7 +51,7 @@ describe("visionary-url", () => {
       const url = generateVisionaryUrl(sampleFields);
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/image.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -73,7 +73,7 @@ describe("visionary-url", () => {
       });
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download/image.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -85,7 +85,7 @@ describe("visionary-url", () => {
       });
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,full/image.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,full/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -98,7 +98,7 @@ describe("visionary-url", () => {
       });
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/4k,download/flowers.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/4k,download/flowers.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -109,7 +109,7 @@ describe("visionary-url", () => {
       });
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/strawberry-fields-vibrant-red.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/strawberry-fields-vibrant-red.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -122,7 +122,7 @@ describe("visionary-url", () => {
       });
 
       const expectedUrl =
-        "https://cdn.visionary.cloud/image/aHR0cHM6Ly9pc3Muc3BhY2UvZWFydGguanBnITQwMCEzMDA/image.jpg";
+        "https://link.visionary.cloud/image/aHR0cHM6Ly9pc3Muc3BhY2UvZWFydGguanBnITQwMCEzMDA/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -153,7 +153,7 @@ describe("visionary-url", () => {
   describe(parseVisionaryString.name, () => {
     test("parses a Visionary URL", () => {
       const inputString =
-        "https://cdn.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/sm,webp/fruit.jpg";
+        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/sm,webp/fruit.jpg";
 
       const { fields, options } = parseVisionaryString(inputString)!;
 

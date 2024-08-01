@@ -48,7 +48,7 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     return null;
   }
   const imageData = imageDataStr.split(V_CODE_SEPARATOR);
-  // codes must contain at a minimum: url, width, height
+  // Visionary codes must contain at a minimum: url, width, height
   if (imageData.length < 3) {
     return null;
   }
@@ -61,13 +61,17 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
   const sourceWidth = Number(widthInput.trim());
   const sourceHeight = Number(heightInput.trim());
   if (isNaN(sourceWidth) || isNaN(sourceHeight) || !sourceWidth || !sourceHeight) {
-    console.error("Cannot parse code, invalid image dimensions: ", widthInput, heightInput);
+    console.error("Cannot parse Visionary Code: invalid image dimensions", widthInput, heightInput);
     return null;
   }
   const blurhashX = Number(bhX) ?? 0;
   const blurhashY = Number(bhY) ?? 0;
   if (blurhashX < 1 || blurhashY < 1) {
-    console.error("Cannot parse code, invalid blurhash x, y component dimensions");
+    console.error(
+      "Cannot parse Visionary Code: invalid blurhash x, y component dimensions",
+      blurhashX,
+      blurhashY
+    );
     return null;
   }
   const fields: VisionaryImageFields = {

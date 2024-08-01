@@ -41,7 +41,7 @@ export interface VisionaryImageFields {
   sourceWidth: number;
 
   /**
-   * Image URL or Visionary File ID
+   * Image URL or internal image identifier
    */
   url: string;
 }
@@ -61,28 +61,21 @@ export interface VisionaryImage {
  */
 export interface VisionaryImageOptions {
   debug?: boolean;
-
   /**
    * Specifies that server should send the file as an attachment download
    * (e.g. content-disposition: attachment)
    */
   download?: boolean;
+  /** Specifies a custom endpoint when `generateVisionaryUrl()` is used */
+  endpoint?: string;
   format?: ImageFormatToken;
   size?: ImageSizeToken;
 }
 
-/**
- * Fields passed to generateVisionaryUrl()
- */
-export interface VisionaryUrlOptions extends VisionaryImageOptions {
-  /**
-   * Specifies a custom endpoint
-   */
-  endpoint?: string;
-
+export interface GenerateUrlOptions extends VisionaryImageOptions {
   /**
    * Specifies a filename for the image URL. Defaults to `image.jpg`.
-   * NOTE: It's recommended to specify a filename as this helps improve discoverability of images by search engines.
+   * @NOTE It's highly recommended to specify a descriptive filename as this helps improve discoverability of images by search engines.
    */
   filename?: string;
 }
