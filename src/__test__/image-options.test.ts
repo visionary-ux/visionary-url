@@ -5,12 +5,21 @@ import { generateOptionsString, parseOptionsString } from "../image-options";
 import { VisionaryImageOptions } from "../types/visionary.types";
 
 describe(parseOptionsString.name, () => {
+  test("options defaults", () => {
+    const parsedOptions = parseOptionsString("");
+
+    expect(parsedOptions.debug).toBeFalsy();
+    expect(parsedOptions.download).toBeFalsy();
+    expect(parsedOptions.follow).toBeFalsy();
+  });
+
   test("parses an options string with size and format specified", () => {
-    const optionsString = "xs,f_auto";
+    const optionsString = "auto,xs";
 
     const parsedOptions = parseOptionsString(optionsString);
 
     expect(parsedOptions.size).toBe(ImageSizeToken.xs);
+    expect(parsedOptions.format).toBe(ImageFormatToken.AUTO);
   });
 
   test("tests a size token (lg)", () => {
@@ -37,6 +46,14 @@ describe(parseOptionsString.name, () => {
 
     expect(parsedOptions.download).toBe(true);
     expect(parsedOptions.size).toBe(ImageSizeToken["4k"]);
+  });
+
+  test("parses an options string with follow set", () => {
+    const optionsString = "4k,follow";
+
+    const parsedOptions = parseOptionsString(optionsString);
+
+    expect(parsedOptions.follow).toBe(true);
   });
 
   test("parses an options string with format set", () => {
