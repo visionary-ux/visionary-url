@@ -1,5 +1,11 @@
 import { ImageFormatToken, ImageSizeToken, UrlOptionToken } from "./enum";
-import { isDebugToken, isDownloadToken, isImageFormatToken, isImageSizeToken } from "./token";
+import {
+  isDebugToken,
+  isDownloadToken,
+  isFollowToken,
+  isImageFormatToken,
+  isImageSizeToken,
+} from "./token";
 import { VisionaryImageOptions } from "./types/visionary.types";
 
 export const parseOptionTokens = (optionTokens: string[] = []): VisionaryImageOptions => {
@@ -11,6 +17,8 @@ export const parseOptionTokens = (optionTokens: string[] = []): VisionaryImageOp
       returnOptions.debug = true;
     } else if (isDownloadToken(token)) {
       returnOptions.download = true;
+    } else if (isFollowToken(token)) {
+      returnOptions.follow = true;
     } else if (isImageFormatToken(token)) {
       returnOptions.format = token;
     }
@@ -28,6 +36,9 @@ export const generateOptionsString = (options: VisionaryImageOptions): string | 
   }
   if (options.download) {
     tokenArr.push(UrlOptionToken.DOWNLOAD);
+  }
+  if (options.follow) {
+    tokenArr.push(UrlOptionToken.FOLLOW);
   }
   if (options.format) {
     if (options.format !== ImageFormatToken.AUTO) {

@@ -23,4 +23,5 @@ export enum ImageSizeToken {
 export enum UrlOptionToken {
   DEBUG = "debug",
   DOWNLOAD = "download",
+  FOLLOW = "follow",
 }

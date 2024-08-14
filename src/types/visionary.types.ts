@@ -68,6 +68,7 @@ export interface VisionaryImageOptions {
   download?: boolean;
   /** Specifies a custom endpoint when `generateVisionaryUrl()` is used */
   endpoint?: string;
+  follow?: boolean;
   format?: ImageFormatToken;
   size?: ImageSizeToken;
 }
