@@ -88,7 +88,7 @@ Options tokens instructing the server to return an `xl` sized image as a downloa
 
 These options within the Visionary URL:
 
-<code>https://link.visionary.cloud/image/djQyITEyODAhODUzITg2OTZhYw/<strong>download,xl</strong>/cornflakes.jpg</code>
+<code>https:<span>//link</span>.visionary.cloud/image/djQyITEyODAhODUzITg2OTZhYw/<strong>download,xl</strong>/cornflakes.jpg</code>
 
 #### Format tokens
 
