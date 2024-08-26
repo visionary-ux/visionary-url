@@ -117,9 +117,9 @@ Size tokens are defined in the `ImageSizeToken` enum in [enum.ts](src/enum.ts). 
 Defaults to `image.jpg`.
 
 > [!TIP]
-> Use descriptive filenames (e.g. `bamboo-grove-sunrise-kyoto.jpg`) to improve image discoverability in search engines.
+> Use descriptive filenames (e.g. `bamboo-grove-kyoto.jpg`) to improve image discoverability in search engines.
 
-The filename can also be used to generate new URLs for the same image. For instance, if the original image is updated but the old URL is caching the old version, appending a version number (e.g., changing the filename from `starship-stacked.jpg` to `starship-stacked-v2.jpg`) ensures that the new image is loaded fresh.
+The filename can be modified to force a cache refresh. For example, if an outdated image is still being served due to caching at a URL, you can append a version number (e.g. `starship-stacked.jpg` to `starship-stacked-v2.jpg`) to ensure the updated image is properly loaded.
 
 ## Using Your Own Subdomain
 
