@@ -1,16 +1,14 @@
-**Visionary URL** is a lightweight Typescript library for generating image URLs with built-in Blurhash placeholders.
+**Visionary URL** is a lightweight TypeScript library for generating image URLs with built-in Blurhash placeholders.
 
-![NPM version](https://img.shields.io/npm/v/visionary-url?style=flat-square&color=beige) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/visionary-ux/visionary-url/.github%2Fworkflows%2Fci-cd-workflow.yml?branch=master&style=flat-square) ![NPM bundle size](https://img.shields.io/bundlephobia/minzip/visionary-url?style=flat-square&color=blue) ![NPM Downloads](https://img.shields.io/npm/d18m/visionary-url?color=lightgray)
+![NPM version](https://img.shields.io/npm/v/visionary-url?color=beige) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/visionary-ux/visionary-url/.github%2Fworkflows%2Fci-cd-workflow.yml?branch=master) ![NPM bundle size](https://img.shields.io/bundlephobia/minzip/visionary-url?color=blue) ![NPM Downloads](https://img.shields.io/npm/d18m/visionary-url?color=lightgray)
 
-#### `visionary-url` includes:
+## Features
 
 - **Blurhash image URLs**: Generate image URLs with embedded Blurhash data, enabling instant image placeholders (via [visionary-image](https://github.com/visionary-ux/visionary-image)).
 - **Cache optimized**: Optimizes browser and CDN caching with path-based placeholder encoding and deterministic URL generation.
 - **Runtime compatibility**: Works seamlessly in browsers, Node.js, and worker environments.
 - **Module support**: Compatible with ES Modules and CommonJS.
 - **Lightweight**: Small footprint, under 3 kB minzipped.
-
----
 
 ## Installation
 
@@ -20,27 +18,27 @@ npm install --save visionary-url
 
 ## Usage
 
-#### Turn your image URL into a Blurhash URL:
+### Generate a Blurhash URL from an image URL or ID:
 
 ```typescript
 import { generateVisionaryUrl } from "visionary-url";
 
-// Your image URL
-const inputUrl = "https://example.cdn/path/to/image.jpg";
-
-// Values from https://visionary.cloud/image-to-blurhash
 const visionaryUrl = generateVisionaryUrl({
-  url: inputUrl,
-  blurhash: "AUFZT.%L_N%1",
+  url: "img#42", // Image ID or URL
+  blurhash: "AUFZT.%L_N%1", // Blurhash generated at https://visionary.cloud/image-to-blurhash
   blurhashX: 2,
   blurhashY: 2,
-  bcc: "#baccae",
+  bcc: "#8696ac", // Background color code
   sourceHeight: 720,
   sourceWidth: 960,
 });
-
-// output: https://link.visionary.cloud/image/aHR0cHM6Ly9leGFtcGxlLmNkbi9wYXRoL3RvL2ltYWdlLmpwZyE5NjAhNzIwITg2OTZhYyFBVUZaVC4lTF9OJTEhMiEy/image.jpg
 ```
+
+This code block generates a URL with the Visionary placeholder data embedded. The bolded section highlights the Visionary Code:
+
+<code>https:<span>//link</span>.visionary.cloud/image/<strong>aW1nIzQyITk2MCE3MjAhODY5NmFjIUFVRlpULiVMX04lMSEyITI</strong>/image.jpg</code>
+
+You can use your own subdomain by setting up a custom route handler to match valid Visionary URLs. See [Using your own subdomain](#using-your-own-subdomain) for more details.
 
 ## Anatomy of a Visionary URL
 
@@ -56,7 +54,7 @@ Defaults to `/image`.
 
 ### Visionary Code
 
-The `Visionary Code` field is a base64url-encoded string containing the following ordered fields:
+The `Visionary Code` field is a base64url-encoded string that includes the following ordered fields:
 
 | Index | Attribute             | Description                                                                         |
 | ----- | --------------------- | ----------------------------------------------------------------------------------- |
@@ -74,11 +72,11 @@ The `Visionary Code` field is a base64url-encoded string containing the followin
 
 ### Image Options
 
-Image options in Visionary URLs are optional and placed in the options segment of the URL, located between the base64url-encoded Visionary code and the filename.
+Image options are optional and appear between the Visionary Code and the filename in the URL.
 
-<code>/image/djQyITEyODAhODUzITg2OTZhYw/<strong>\<options\></strong>/cornflakes.jpg</code>
+<code>/image/djQyITEyODAhODUzITg2OTZhYw/<strong>\<options\></strong>/image.jpg</code>
 
-Options are represented as comma-separated tokens. For deterministic URLs and optimized browser and CDN caching, this tokens are sorted lexicographically.
+Options are represented as comma-separated tokens and sorted lexicographically for deterministic URLs and optimized caching.
 
 **Example:**
 
@@ -86,23 +84,22 @@ Options tokens instructing the server to return an `xl` sized image as a downloa
 
 `download,xl`
 
-These options within the Visionary URL:
-
-<code>https:<span>//link</span>.visionary.cloud/image/djQyITEyODAhODUzITg2OTZhYw/<strong>download,xl</strong>/cornflakes.jpg</code>
+These options in the Visionary URL:
+<code>https:<span>//link</span>.visionary.cloud/image/djQyITEyODAhODUzITg2OTZhYw/<strong>download,xl</strong>/image.jpg</code>
 
 #### Format tokens
 
-Specify the image format using the following tokens:
+Specify the image format using one of the following tokens:
 `auto` (default), `avif`, `jpeg`, `webp`
 
-- `auto` selects the image format based on the browser's `Accept` request header.
+- `auto` selects the format based on the browser's `Accept` header.
 - `avif`, `jpeg`, `webp` force the image to be served in the specified format.
 
 Format tokens are defined in the `ImageFormatToken` enum in [enum.ts](src/enum.ts).
 
 #### Size tokens
 
-Specify the image size using the following tokens:
+Specify the image size using one of the following tokens:
 `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `4k`, `5k`
 
 Size tokens are defined in the `ImageSizeToken` enum in [enum.ts](src/enum.ts). The size-to-pixel mapping is defined in the `IMAGE_SIZES` variable in [constants.ts](src/constants.ts).
@@ -120,9 +117,32 @@ Size tokens are defined in the `ImageSizeToken` enum in [enum.ts](src/enum.ts). 
 Defaults to `image.jpg`.
 
 > [!TIP]
-> Use descriptive filenames (e.g. `bamboo-grove-sunrise-kyoto.jpg`) to improve image discoverability in search engines.
+> Use descriptive filenames (e.g. `bamboo-grove-kyoto.jpg`) to improve image discoverability in search engines.
 
-The filename can also be used to generate new URLs for the same image. For instance, if the original image is updated but the old URL is cached by your CDN, appending a version number (e.g., changing the filename from `starship-stacked.jpg` to `starship-stacked-v2.jpg`) ensures that the new image is loaded fresh.
+The filename can be modified to force a cache refresh. For example, if an outdated image is still being served due to caching at a URL, you can append a version number (e.g. `starship-stacked.jpg` to `starship-stacked-v2.jpg`) to ensure the updated image is properly loaded.
+
+## Using Your Own Subdomain
+
+To use your own subdomain, set up routes to match valid Visionary URLs.
+
+```typescript
+app.get("/image/:visionaryCode/:filename", handler);
+app.get("/image/:visionaryCode/:options/:filename", handler);
+```
+
+`handler` parses the URL for Visionary data and allows you to serve images as needed.
+
+```typescript
+import { parseVisionaryString } from "visionary-url";
+
+const handler = (request: Request) => {
+  const data = parseVisionaryString(request.url);
+
+  const imageUrl = data.fields.url;
+
+  // Load, serve, or redirect your image as needed
+};
+```
 
 ## Frequently Asked Questions
 
@@ -134,4 +154,4 @@ Furthermore, you can use Visionary to update your existing image URL field. No n
 
 ### How are fields separated in the Visionary Code
 
-Visionary Code fields are separated with an exclamation `!` before being base64url-encoded. This separator must be a value not used by blurhash/base83. See here for more details: https://github.com/woltapp/blurhash/blob/master/Algorithm.md#base-83
+Visionary Code fields are separated with an exclamation `!` before being base64url-encoded. This separator was chosen to avoid conflicts with values used by Blurhash/base83. For more details, see [this section](https://github.com/woltapp/blurhash/blob/master/Algorithm.md#base-83) of the Blurhash Algorithm docs.
