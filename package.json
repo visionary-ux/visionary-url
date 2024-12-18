@@ -43,9 +43,6 @@
     "package.json",
     "README.md"
   ],
-  "dependencies": {
-    "visionary-base64url": "0.0.2"
-  },
   "devDependencies": {
     "@types/node": "18.19.2",
     "@typescript-eslint/eslint-plugin": "7.14.1",
@@ -66,5 +63,8 @@
     "placeholder",
     "ux",
     "visionary"
-  ]
+  ],
+  "dependencies": {
+    "visionary-base64url": "0.1.0"
+  }
 }
