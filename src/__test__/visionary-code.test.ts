@@ -1,4 +1,4 @@
-import { encode as encodeBase64Url } from "universal-base64url";
+import { encodeBase64Url } from "visionary-base64url";
 import { describe, expect, test } from "vitest";
 
 import { V_CODE_SEPARATOR } from "../constants";

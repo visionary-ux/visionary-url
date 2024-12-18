@@ -44,7 +44,7 @@
     "README.md"
   ],
   "dependencies": {
-    "universal-base64url": "1.1.0"
+    "visionary-base64url": "0.0.2"
   },
   "devDependencies": {
     "@types/node": "18.19.2",

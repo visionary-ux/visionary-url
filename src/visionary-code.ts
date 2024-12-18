@@ -1,4 +1,4 @@
-import { decode as decodeBase64Url, encode as encodeBase64Url } from "universal-base64url";
+import { decodeBase64Url, encodeBase64Url } from "visionary-base64url";
 
 import { V_CODE_SEPARATOR } from "./constants";
 import { isBase64UrlEncoded } from "./util";
