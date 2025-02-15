@@ -1,4 +1,4 @@
-name: visionary-url CI/CD
+name: blurhash-url CI/CD
 
 on:
   push:

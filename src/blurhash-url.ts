@@ -8,12 +8,12 @@ import {
   GenerateUrlOptions,
   VisionaryImage,
   VisionaryImageFields,
-  VisionaryUrlParts,
+  BlurhashUrlParts,
 } from "./types/visionary.types";
 
 /**
  * Parses input string for Visionary data contained within
- * @param visionaryCodeOrUrl string which represents a Visionary Code or Visionary URL
+ * @param visionaryCodeOrUrl string which represents a Visionary Code or Blurhash URL
  */
 export const parseVisionaryString = (visionaryCodeOrUrl: string): VisionaryImage | null => {
   const isFormattedAsCode = isBase64UrlEncoded(visionaryCodeOrUrl);
@@ -26,10 +26,10 @@ export const parseVisionaryString = (visionaryCodeOrUrl: string): VisionaryImage
       };
     }
   }
-  return parseVisionaryUrl(visionaryCodeOrUrl);
+  return parseBlurhashUrl(visionaryCodeOrUrl);
 };
 
-export const parseVisionaryUrl = (url: string): VisionaryImage | null => {
+export const parseBlurhashUrl = (url: string): VisionaryImage | null => {
   if (!url) {
     return null;
   }
@@ -62,7 +62,7 @@ export const parseVisionaryUrl = (url: string): VisionaryImage | null => {
   return null;
 };
 
-export const generateVisionaryUrl = (
+export const generateBlurhashUrl = (
   fields: VisionaryImageFields,
   options?: GenerateUrlOptions
 ): string | null => {
@@ -97,9 +97,9 @@ export const generateVisionaryUrl = (
 };
 
 /**
- * Given a Visionary URL, extracts the code and any options tokens
+ * Given a Blurhash URL, extracts the code and any options tokens
  */
-const extractUrlParts = (inputUrl: string): VisionaryUrlParts | null => {
+const extractUrlParts = (inputUrl: string): BlurhashUrlParts | null => {
   try {
     const url = new URL(inputUrl);
     const pathParts = compact(url.pathname.split("/"));

@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import { VisionaryImageFields } from "../types/visionary.types";
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { InvalidEndpoint } from "../error";
-import { generateVisionaryUrl, parseVisionaryString, parseVisionaryUrl } from "../visionary-url";
+import { generateBlurhashUrl, parseBlurhashUrl, parseVisionaryString } from "../blurhash-url";
 
 const sampleFields: VisionaryImageFields = {
   blurhash: "LCDJYN9FxG_M_N%L%M%M4o~ptRIA",
@@ -16,22 +16,22 @@ const sampleFields: VisionaryImageFields = {
 };
 
 const sampleUrl =
-  "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/strawberries.jpg";
+  "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/strawberries.jpg";
 
-describe("visionary-url", () => {
-  describe(parseVisionaryUrl.name, () => {
-    test("parses a Visionary URL", () => {
-      const { fields, options } = parseVisionaryUrl(sampleUrl)!;
+describe("blurhash-url", () => {
+  describe(parseBlurhashUrl.name, () => {
+    test("parses a Blurhash URL", () => {
+      const { fields, options } = parseBlurhashUrl(sampleUrl)!;
 
       expect(fields.url).toBe("vb87s1");
       expect(Object.keys(options).length).toBe(0);
     });
 
-    test("parses a Visionary URL with options", () => {
+    test("parses a Blurhash URL with options", () => {
       const urlWithOptions =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k,avif/strawberries.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k,avif/strawberries.jpg";
 
-      const { fields, options } = parseVisionaryUrl(urlWithOptions)!;
+      const { fields, options } = parseBlurhashUrl(urlWithOptions)!;
 
       expect(fields.url).toBe("vb87s1");
       expect(options.size).toBe(ImageSizeToken["4k"]);
@@ -40,24 +40,24 @@ describe("visionary-url", () => {
     });
 
     test("handles a bad input", () => {
-      const response = parseVisionaryUrl(null as unknown as string);
+      const response = parseBlurhashUrl(null as unknown as string);
 
       expect(response).toBe(null);
     });
   });
 
-  describe(generateVisionaryUrl.name, () => {
+  describe(generateBlurhashUrl.name, () => {
     test("generates a URL", () => {
-      const url = generateVisionaryUrl(sampleFields);
+      const url = generateBlurhashUrl(sampleFields);
 
       const expectedUrl =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/image.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
 
     test("generates a URL with a custom endpoint", () => {
-      const url = generateVisionaryUrl(sampleFields, {
+      const url = generateBlurhashUrl(sampleFields, {
         endpoint: "https://cdn.iss.space",
       });
 
@@ -68,79 +68,79 @@ describe("visionary-url", () => {
     });
 
     test("generates a URL with the download option specified", () => {
-      const url = generateVisionaryUrl(sampleFields, {
+      const url = generateBlurhashUrl(sampleFields, {
         download: true,
       });
 
       const expectedUrl =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download/image.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
 
     test("generates a URL with image options", () => {
-      const url = generateVisionaryUrl(sampleFields, {
+      const url = generateBlurhashUrl(sampleFields, {
         download: true,
         size: ImageSizeToken.full,
       });
 
       const expectedUrl =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,full/image.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,full/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
 
     test("generates a URL with image options and filename", () => {
-      const url = generateVisionaryUrl(sampleFields, {
+      const url = generateBlurhashUrl(sampleFields, {
         download: true,
         filename: "flowers.jpg",
         size: ImageSizeToken["4k"],
       });
 
       const expectedUrl =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/4k,download/flowers.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/4k,download/flowers.jpg";
 
       expect(url).toBe(expectedUrl);
     });
 
     test("generates a URL with a custom filename", () => {
-      const url = generateVisionaryUrl(sampleFields, {
+      const url = generateBlurhashUrl(sampleFields, {
         filename: "strawberry-fields-vibrant-red.jpg",
       });
 
       const expectedUrl =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/strawberry-fields-vibrant-red.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/strawberry-fields-vibrant-red.jpg";
 
       expect(url).toBe(expectedUrl);
     });
 
     test("generates a URL with only url/width/height (no bg color or blurhash)", () => {
-      const url = generateVisionaryUrl({
+      const url = generateBlurhashUrl({
         url: "https://iss.space/earth.jpg",
         sourceWidth: 400,
         sourceHeight: 300,
       });
 
       const expectedUrl =
-        "https://link.visionary.cloud/image/aHR0cHM6Ly9pc3Muc3BhY2UvZWFydGguanBnITQwMCEzMDA/image.jpg";
+        "https://blurhash.link/image/aHR0cHM6Ly9pc3Muc3BhY2UvZWFydGguanBnITQwMCEzMDA/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
 
     test("returns null on bad inputs", () => {
-      expect(generateVisionaryUrl("" as unknown as VisionaryImageFields)).toBeNull();
-      expect(generateVisionaryUrl({} as VisionaryImageFields)).toBeNull();
+      expect(generateBlurhashUrl("" as unknown as VisionaryImageFields)).toBeNull();
+      expect(generateBlurhashUrl({} as VisionaryImageFields)).toBeNull();
     });
 
     test("throws on invalid endpoint", () => {
       const testError1 = () => {
-        generateVisionaryUrl(sampleFields, {
+        generateBlurhashUrl(sampleFields, {
           endpoint: "notacdn.net", // no protocol specified
         });
       };
 
       const testError2 = () => {
-        generateVisionaryUrl(sampleFields, {
+        generateBlurhashUrl(sampleFields, {
           endpoint: "not-a-url",
         });
       };
@@ -151,9 +151,9 @@ describe("visionary-url", () => {
   });
 
   describe(parseVisionaryString.name, () => {
-    test("parses a Visionary URL", () => {
+    test("parses a Blurhash URL", () => {
       const inputString =
-        "https://link.visionary.cloud/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/sm,webp/fruit.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/sm,webp/fruit.jpg";
 
       const { fields, options } = parseVisionaryString(inputString)!;
 

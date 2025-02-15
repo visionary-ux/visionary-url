@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   build: {
     lib: {
-      entry: [resolve(__dirname, "lib/constants.ts"), resolve(__dirname, "lib/visionary-url.ts")],
+      entry: [resolve(__dirname, "lib/constants.ts"), resolve(__dirname, "lib/blurhash-url.ts")],
     },
   },
   plugins: [

@@ -1,7 +1,7 @@
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 
 /**
- * Image metadata fields encoded in a Visionary URL
+ * Image metadata fields encoded in a Blurhash URL
  */
 export interface VisionaryImageFields {
   /**
@@ -46,7 +46,7 @@ export interface VisionaryImageFields {
   url: string;
 }
 
-export interface VisionaryUrlParts {
+export interface BlurhashUrlParts {
   code: string;
   optionTokens: string[];
 }
@@ -57,7 +57,7 @@ export interface VisionaryImage {
 }
 
 /**
- * Options are encoded in the second segment of a Visionary URL
+ * Options are encoded in the second path segment of a Blurhash URL
  */
 export interface VisionaryImageOptions {
   debug?: boolean;
@@ -66,7 +66,7 @@ export interface VisionaryImageOptions {
    * (e.g. content-disposition: attachment)
    */
   download?: boolean;
-  /** Specifies a custom endpoint when `generateVisionaryUrl()` is used */
+  /** Specifies a custom endpoint using `generateBlurhashUrl()` */
   endpoint?: string;
   follow?: boolean;
   format?: ImageFormatToken;

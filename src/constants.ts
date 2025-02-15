@@ -7,10 +7,10 @@ import { VisionaryImageOptions } from "./types/visionary.types";
 export const BASE_BLURHASH_DIMENSIONS = 4;
 
 /**
- * Default endpoint for generating Visionary URLs
- * - Can be overridden in the `options` field of generateVisionaryUrl()
+ * Default endpoint for generating Blurhash URLs
+ * - Can be overridden in the `options` field of generateBlurhashUrl()
  */
-export const DEFAULT_ENDPOINT = "https://link.visionary.cloud";
+export const DEFAULT_ENDPOINT = "https://blurhash.link";
 
 export const DEFAULT_OPTIONS: VisionaryImageOptions = {
   debug: false,

@@ -1,6 +1,6 @@
-**Visionary URL** is a lightweight TypeScript library for generating image URLs with built-in Blurhash placeholders.
+**Blurhash URL** is a lightweight TypeScript library for generating image URLs with built-in Blurhash placeholders.
 
-![NPM version](https://img.shields.io/npm/v/visionary-url?color=beige) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/visionary-ux/visionary-url/.github%2Fworkflows%2Fci-cd-workflow.yml?branch=master) ![NPM bundle size](https://img.shields.io/bundlephobia/minzip/visionary-url?color=blue) ![NPM Downloads](https://img.shields.io/npm/d18m/visionary-url?color=lightgray)
+![NPM version](https://img.shields.io/npm/v/blurhash-url?color=beige) ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/visionary-ux/blurhash-url/.github%2Fworkflows%2Fci-cd-workflow.yml?branch=master) ![NPM bundle size](https://img.shields.io/bundlephobia/minzip/blurhash-url?color=blue) ![NPM Downloads](https://img.shields.io/npm/d18m/blurhash-url?color=lightgray)
 
 ## Features
 
@@ -13,7 +13,7 @@
 ## Installation
 
 ```bash
-npm install --save visionary-url
+npm install --save blurhash-url
 ```
 
 ## Usage
@@ -21,10 +21,10 @@ npm install --save visionary-url
 ### Generate a Blurhash URL from an image URL or ID:
 
 ```typescript
-import { generateVisionaryUrl } from "visionary-url";
+import { generateBlurhashUrl } from "blurhash-url";
 
-const visionaryUrl = generateVisionaryUrl({
-  url: "img#42", // Image ID or URL
+const blurhashUrl = generateBlurhashUrl({
+  url: "image:42", // Image ID or Image URL
   blurhash: "AUFZT.%L_N%1", // Blurhash generated at https://visionary.cloud/image-to-blurhash
   blurhashX: 2,
   blurhashY: 2,
@@ -38,11 +38,11 @@ This code block generates a URL with the Visionary placeholder data embedded. Th
 
 <code>https:<span>//link</span>.visionary.cloud/image/<strong>aW1nIzQyITk2MCE3MjAhODY5NmFjIUFVRlpULiVMX04lMSEyITI</strong>/image.jpg</code>
 
-You can use your own subdomain by setting up a custom route handler to match valid Visionary URLs. See [Using your own subdomain](#using-your-own-subdomain) for more details.
+You can use your own subdomain by setting up a custom route handler to match valid Blurhas URLs. See [Using your own subdomain](#using-your-own-subdomain) for more details.
 
-## Anatomy of a Visionary URL
+## Anatomy of a Blurhash URL
 
-A Visionary URL contains 3 or 4 path segments, arranged as follows:
+A Blurhash URL contains 3 or 4 path segments, arranged as follows:
 
 |     | Base path |     | Visionary Code                         |     | Options (optional) |     | Filename    |
 | --- | --------- | --- | -------------------------------------- | --- | ------------------ | --- | ----------- |
@@ -84,7 +84,7 @@ Options tokens instructing the server to return an `xl` sized image as a downloa
 
 `download,xl`
 
-These options in the Visionary URL:
+These options in the Blurhash URL:
 <code>https:<span>//link</span>.visionary.cloud/image/djQyITEyODAhODUzITg2OTZhYw/<strong>download,xl</strong>/image.jpg</code>
 
 #### Format tokens
@@ -123,7 +123,7 @@ The filename can be modified to force a cache refresh. For example, if an outdat
 
 ## Using Your Own Subdomain
 
-To use your own subdomain, set up routes to match valid Visionary URLs.
+To use your own subdomain, set up two routes to match valid Blurhash URLs.
 
 ```typescript
 app.get("/image/:visionaryCode/:filename", handler);
@@ -133,7 +133,7 @@ app.get("/image/:visionaryCode/:options/:filename", handler);
 `handler` parses the URL for Visionary data and allows you to serve images as needed.
 
 ```typescript
-import { parseVisionaryString } from "visionary-url";
+import { parseVisionaryString } from "blurhash-url";
 
 const handler = (request: Request) => {
   const data = parseVisionaryString(request.url);
@@ -146,12 +146,12 @@ const handler = (request: Request) => {
 
 ## Frequently Asked Questions
 
-### What are the benefits of using Visionary URL?
+### What are the benefits of using Blurhash URL?
 
-Visionary URLs contain all data necessary to render beautiful image placeholders. This approach eliminates the need for separate API calls to fetch blurhash placeholder data, resulting in faster initial page renders and a smoother visual loading experience for users.
+Blurhash URLs contain all data necessary to render beautiful image placeholders. This approach eliminates the need for an API call to fetch blurhash placeholder data, resulting in faster initial page renders and a smoother visual loading experience for users.
 
 Furthermore, you can use Visionary to update your existing image URL field. No need for data migrations to add blurhash columns in your DB.
 
-### How are fields separated in the Visionary Code
+### How is the Visionary Code structured
 
 Visionary Code fields are separated with an exclamation `!` before being base64url-encoded. This separator was chosen to avoid conflicts with values used by Blurhash/base83. For more details, see [this section](https://github.com/woltapp/blurhash/blob/master/Algorithm.md#base-83) of the Blurhash Algorithm docs.

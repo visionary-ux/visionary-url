@@ -10,7 +10,7 @@ import {
   extractBlurhashComponentDimensions,
 } from "../util";
 
-describe("Visionary URL utils", () => {
+describe("Blurhash URL utils", () => {
   describe(isImageSizeToken.name, () => {
     test("returns true for size token", () => {
       const isSize = isImageSizeToken("lg");
