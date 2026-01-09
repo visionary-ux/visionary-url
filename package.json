@@ -60,11 +60,12 @@
     "blur",
     "blurhash",
     "image",
+    "image-loading",
     "placeholder",
     "ux",
     "visionary"
   ],
   "dependencies": {
-    "visionary-base64url": "0.1.1"
+    "visionary-base64url": "0.1.2"
   }
 }
