@@ -1,7 +1,7 @@
 {
   "name": "blurhash-url",
   "version": "1.4.0",
-  "description": "A lightweight library for generating image URLs with baked-in blurhash placeholders.",
+  "description": "Generate image URLs with embedded Blurhash placeholders.",
   "type": "module",
   "main": "./dist/blurhash-url.cjs",
   "module": "./dist/blurhash-url.js",
@@ -44,15 +44,15 @@
     "README.md"
   ],
   "devDependencies": {
-    "@types/node": "18.19.2",
-    "@typescript-eslint/eslint-plugin": "7.14.1",
-    "@typescript-eslint/parser": "7.14.1",
-    "eslint": "8.57.0",
-    "rimraf": "5.0.10",
-    "typescript": "5.5.2",
-    "vite": "5.4.11",
-    "vite-plugin-dts": "3.9.1",
-    "vitest": "1.6.0"
+    "@types/node": "24.10.4",
+    "@typescript-eslint/eslint-plugin": "8.52.0",
+    "@typescript-eslint/parser": "8.52.0",
+    "eslint": "9.39.2",
+    "rimraf": "6.1.2",
+    "typescript": "5.9.3",
+    "vite": "7.3.1",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.0.16"
   },
   "license": "ISC",
   "keywords": [
