@@ -9,20 +9,20 @@
   "types": "./dist/blurhash-url.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/blurhash-url.d.ts",
       "import": "./dist/blurhash-url.js",
-      "require": "./dist/blurhash-url.cjs",
-      "types": "./dist/blurhash-url.d.ts"
+      "require": "./dist/blurhash-url.cjs"
     },
     "./constants": {
+      "types": "./dist/constants.d.ts",
       "import": "./dist/constants.js",
       "require": "./dist/constants.cjs",
-      "types": "./dist/constants.d.ts",
       "default": "./dist/constants.cjs"
     },
     "./constants/index": {
+      "types": "./dist/constants.d.ts",
       "import": "./dist/constants.js",
       "require": "./dist/constants.cjs",
-      "types": "./dist/constants.d.ts",
       "default": "./dist/constants.cjs"
     }
   },
