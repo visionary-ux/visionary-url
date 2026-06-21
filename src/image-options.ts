@@ -12,7 +12,7 @@ export const parseOptionTokens = (optionTokens: string[] = []): VisionaryImageOp
   const returnOptions: VisionaryImageOptions = {};
   for (const token of optionTokens) {
     if (isImageSizeToken(token)) {
-      returnOptions.size = ImageSizeToken[token];
+      returnOptions.size = token;
     } else if (isDebugToken(token)) {
       returnOptions.debug = true;
     } else if (isDownloadToken(token)) {
@@ -40,10 +40,8 @@ export const generateOptionsString = (options: VisionaryImageOptions): string | 
   if (options.follow) {
     tokenArr.push(UrlOptionToken.FOLLOW);
   }
-  if (options.format) {
-    if (options.format !== ImageFormatToken.AUTO) {
-      tokenArr.push(options.format);
-    }
+  if (options.format && options.format !== ImageFormatToken.AUTO) {
+    tokenArr.push(options.format);
   }
   if (options.size && isImageSizeToken(options.size)) {
     tokenArr.push(options.size);

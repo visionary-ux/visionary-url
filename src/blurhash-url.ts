@@ -30,10 +30,7 @@ export const parseVisionaryString = (visionaryCodeOrUrl: string): VisionaryImage
 };
 
 export const parseBlurhashUrl = (url: string): VisionaryImage | null => {
-  if (!url) {
-    return null;
-  }
-  const sanitizedUrl = url.trim();
+  const sanitizedUrl = url?.trim();
   if (!sanitizedUrl) {
     return null;
   }
@@ -70,18 +67,11 @@ export const generateBlurhashUrl = (
   if (visionaryCode instanceof Error) {
     return null;
   }
-
-  let urlEndpoint: URL | null = null;
-  if (options?.endpoint) {
-    urlEndpoint = createUrl(options?.endpoint);
-    if (!urlEndpoint) {
-      throw new InvalidEndpoint(
-        "Cannot construct URL: bad endpoint. Ensure endpoint starts with http:// or https://"
-      );
-    }
-  }
+  const urlEndpoint = options?.endpoint ? createUrl(options?.endpoint) : createUrl(DEFAULT_ENDPOINT);
   if (!urlEndpoint) {
-    urlEndpoint = createUrl(DEFAULT_ENDPOINT) as URL;
+    throw new InvalidEndpoint(
+      "Cannot construct URL: bad endpoint. Ensure endpoint starts with http:// or https://"
+    );
   }
   const urlParts = [urlEndpoint.origin, "image", visionaryCode];
   const optionsString = options ? generateOptionsString(options) : null;
@@ -110,7 +100,7 @@ const extractUrlParts = (inputUrl: string): BlurhashUrlParts | null => {
     if (!code.length || !isBase64UrlEncoded(code)) {
       throw new Error("URL is not formatted as base64url");
     }
-    // Options specified
+    // Options segment specified
     if (pathParts.length === 4) {
       const optionTokens = pathParts[2].split(",");
       return {
@@ -118,13 +108,11 @@ const extractUrlParts = (inputUrl: string): BlurhashUrlParts | null => {
         optionTokens,
       };
     }
-    // Options not specified
-    if (pathParts.length === 3) {
-      return {
-        code,
-        optionTokens: [],
-      };
-    }
+    // Options segment not specified
+    return {
+      code,
+      optionTokens: [],
+    };
   } catch {
     return null;
   }
