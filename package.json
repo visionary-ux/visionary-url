@@ -43,6 +43,7 @@
     "package.json",
     "README.md"
   ],
+  "packageManager": "pnpm@11.5.1",
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@types/node": "24.10.4",

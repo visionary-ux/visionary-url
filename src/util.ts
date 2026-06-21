@@ -7,7 +7,7 @@ export const compact = (items: any[]) => items.filter(Boolean);
 export const createUrl = (url: string): URL | null => {
   try {
     return new URL(url);
-  } catch (_) {
+  } catch {
     return null;
   }
 };

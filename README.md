@@ -13,7 +13,7 @@
 ## Installation
 
 ```bash
-npm install --save blurhash-url
+pnpm add blurhash-url
 ```
 
 ## Usage

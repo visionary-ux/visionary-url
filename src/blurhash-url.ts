@@ -125,7 +125,7 @@ const extractUrlParts = (inputUrl: string): BlurhashUrlParts | null => {
         optionTokens: [],
       };
     }
-  } catch (_) {
+  } catch {
     return null;
   }
   return null;
