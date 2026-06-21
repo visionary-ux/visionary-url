@@ -51,7 +51,7 @@ describe("blurhash-url", () => {
       const url = generateBlurhashUrl(sampleFields);
 
       const expectedUrl =
-        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/image.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -62,7 +62,7 @@ describe("blurhash-url", () => {
       });
 
       const expectedUrl =
-        "https://cdn.iss.space/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/image.jpg";
+        "https://cdn.iss.space/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -73,7 +73,7 @@ describe("blurhash-url", () => {
       });
 
       const expectedUrl =
-        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download/image.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/download/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -85,7 +85,7 @@ describe("blurhash-url", () => {
       });
 
       const expectedUrl =
-        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/download,full/image.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/download,full/image.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -98,7 +98,7 @@ describe("blurhash-url", () => {
       });
 
       const expectedUrl =
-        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/4k,download/flowers.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/4k,download/flowers.jpg";
 
       expect(url).toBe(expectedUrl);
     });
@@ -109,7 +109,7 @@ describe("blurhash-url", () => {
       });
 
       const expectedUrl =
-        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQSE0ITQ/strawberry-fields-vibrant-red.jpg";
+        "https://blurhash.link/image/dmI4N3MxITE2MDAhMTIwMCExMTAwNDQhTENESllOOUZ4R19NX04lTCVNJU00b35wdFJJQQ/strawberry-fields-vibrant-red.jpg";
 
       expect(url).toBe(expectedUrl);
     });

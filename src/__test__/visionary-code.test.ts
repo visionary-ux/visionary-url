@@ -60,6 +60,54 @@ describe("visionary-code", () => {
       expect(fields?.blurhashY).toBe(2);
     });
 
+    test("infers blurhash dimensions from blurhash string", () => {
+      const altText = "Ancient template in morning light";
+      const code = encodeBase64Url(
+        ["image:10001", 800, 600, "#baccae", "TCM*Bb^+Rkxuxuag~qWCj?M{M{fj", altText].join(V_CODE_SEPARATOR)
+      );
+
+      const fields = parseVisionaryCode(code);
+
+      expect(fields?.blurhash).toBe("TCM*Bb^+Rkxuxuag~qWCj?M{M{fj");
+      expect(fields?.blurhashX).toBe(3);
+      expect(fields?.blurhashY).toBe(4);
+      expect(fields?.altText).toBe(altText);
+    });
+
+    test("parses alt text when blurhash is omitted", () => {
+      const altText = "Butterfly on a purple flower";
+      const code = encodeBase64Url(["image:88592", 800, 600, "#c0ffee", "", altText].join("!"));
+
+      const fields = parseVisionaryCode(code);
+
+      expect(fields?.url).toBe("image:88592");
+      expect(fields?.bcc).toBe("#c0ffee");
+      expect(fields?.blurhash).toBeUndefined();
+      expect(fields?.altText).toBe(altText);
+    });
+
+    // legacy url tests (remove)
+
+    test("parses a legacy visionary code with x/y and alt text", () => {
+      const code = encodeBase64Url(
+        ["image:10001", 800, 600, "#BEEEEF", "TCM*Bb^+Rkxuxuag~qWCj?M{M{fj", 3, 4, "Legacy alt text"].join(
+          V_CODE_SEPARATOR
+        )
+      );
+
+      const fields = parseVisionaryCode(code);
+
+      expect(fields?.blurhashX).toBe(3);
+      expect(fields?.blurhashY).toBe(4);
+      expect(fields?.altText).toBe("Legacy alt text");
+    });
+
+    test("returns null when inferred blurhash dimensions are invalid", () => {
+      const code = encodeBase64Url(["image:10001", 800, 600, "#BEEEEF", "abcde"].join(V_CODE_SEPARATOR));
+
+      expect(parseVisionaryCode(code)).toBeNull();
+    });
+
     test("ignores an invalid code", () => {
       const badCode = "haha~~not~~valid!";
 
@@ -91,7 +139,11 @@ describe("visionary-code", () => {
 
       const code = generateVisionaryCode(fields);
 
-      const expectedCode = "TmRDSlUhMjAwITEwMCFiZTNlM2YhMThEKzkrfVMhMiEx";
+      const expectedCode = encodeBase64Url(
+        [fields.url, fields.sourceWidth, fields.sourceHeight, fields.bcc, fields.blurhash].join(
+          V_CODE_SEPARATOR
+        )
+      );
 
       expect(code).toBe(expectedCode);
     });
@@ -110,7 +162,16 @@ describe("visionary-code", () => {
 
       const code = generateVisionaryCode(fields);
 
-      const expectedCode = "STJ6VXchMTAwITEwMCFiZTNlM2YhQThEKzkrfVMwMVMkITIhMiFIYXBweSBjb3cgb24gYSBmYXJt";
+      const expectedCode = encodeBase64Url(
+        [
+          fields.url,
+          fields.sourceWidth,
+          fields.sourceHeight,
+          fields.bcc,
+          fields.blurhash,
+          fields.altText,
+        ].join(V_CODE_SEPARATOR)
+      );
 
       expect(code).toBe(expectedCode);
     });
