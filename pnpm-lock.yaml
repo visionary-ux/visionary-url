@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       visionary-base64url:
-        specifier: 0.1.2
-        version: 0.1.2
+        specifier: file:bin/visionary-base64url-0.1.3c.tgz
+        version: file:bin/visionary-base64url-0.1.3c.tgz
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.2
@@ -1211,8 +1211,9 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  visionary-base64url@0.1.2:
-    resolution: {integrity: sha512-VQu2i1WysQded/teSF7kEopQX1tEy/zdeq/GG72L2S3fz3h/FGar/qajnD6YXAoOTVPRIGvL3ObM9KL0kp6T0A==}
+  visionary-base64url@file:bin/visionary-base64url-0.1.3c.tgz:
+    resolution: {integrity: sha512-dmd3yUKuwqsMyEnE+czaNjS5+d7R7c5vNcnunlDaYacdWf2HFG8u4wwz/e/BFlcL/MaHL8KJwM0Sl1stDohh1Q==, tarball: file:bin/visionary-base64url-0.1.3c.tgz}
+    version: 0.1.3
 
   vite-plugin-dts@4.5.4:
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
@@ -2402,7 +2403,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  visionary-base64url@0.1.2:
+  visionary-base64url@file:bin/visionary-base64url-0.1.3c.tgz:
     dependencies:
       js-base64: 3.7.8
 

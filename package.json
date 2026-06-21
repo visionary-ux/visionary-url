@@ -18,21 +18,16 @@
       "import": "./dist/constants.js",
       "require": "./dist/constants.cjs",
       "default": "./dist/constants.cjs"
-    },
-    "./constants/index": {
-      "types": "./dist/constants.d.ts",
-      "import": "./dist/constants.js",
-      "require": "./dist/constants.cjs",
-      "default": "./dist/constants.cjs"
     }
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "pnpm run clean && tsc && vite build",
     "clean": "rimraf dist/",
     "dev": "vite",
     "lint": "tsc --noEmit && eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "test:package": "node package-smoke.mjs"
   },
   "repository": {
     "type": "git",
@@ -69,6 +64,6 @@
     "visionary"
   ],
   "dependencies": {
-    "visionary-base64url": "0.1.2"
+    "visionary-base64url": "file:bin/visionary-base64url-0.1.3c.tgz"
   }
 }
