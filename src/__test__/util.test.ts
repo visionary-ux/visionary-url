@@ -78,14 +78,23 @@ describe("Blurhash URL utils", () => {
   describe(extractBlurhashComponentDimensions.name, () => {
     test("can extract blurhash dimensions", () => {
       const testBlurhash1 = "UNL#hSRQ]z%30b-pxubIGcWV59NHa1I;W=of"; // 4x4
+      const testBlurhash2 = "%89=QlbH]+bG1Msn1Mn*#.S3}CNv$#oKoKw_"; // 2x8
 
       expect(extractBlurhashComponentDimensions(testBlurhash1)).toEqual({
         xComponents: 4,
         yComponents: 4,
       });
 
-      // Note: this function can't tell the order of x,y so there's no use testing non-square dimensions
-      // const testBlurhash2 = "%89=QlbH]+bG1Msn1Mn*#.S3}CNv$#oKoKw_"; // 2x8
+      expect(extractBlurhashComponentDimensions(testBlurhash2)).toEqual({
+        xComponents: 2,
+        yComponents: 8,
+      });
+    });
+
+    test("throws for invalid blurhash values", () => {
+      expect(() => extractBlurhashComponentDimensions("")).toThrow(/Invalid Blurhash/);
+      expect(() => extractBlurhashComponentDimensions("!!!!!!")).toThrow(/Invalid Blurhash/);
+      expect(() => extractBlurhashComponentDimensions("UNL#hS")).toThrow(/Invalid Blurhash/);
     });
   });
 });

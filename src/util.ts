@@ -48,14 +48,27 @@ export const suggestedBlurhashComponentDimensions = (
 };
 
 /**
- * Note: this function is not entirely accurate as 'unfactoring' can't determine order of x, y
- * (e.g. two blurhash strings with x,y components (3,4) and (4,3) will return the same result).
- * We keep it here as a debugging tool; it's not used in the library.
+ * Extracts the X/Y component dimensions from a Blurhash string
  */
 export const extractBlurhashComponentDimensions = (blurhash: string) => {
+  if (!blurhash || blurhash.length < 6) {
+    throw new Error("Invalid Blurhash");
+  }
+
   const sizeDigit = base83Chars(blurhash[0]);
-  const xComponents = Math.floor(sizeDigit / 9) + 1;
-  const yComponents = (sizeDigit % 9) + 1;
+
+  if (sizeDigit < 0) {
+    throw new Error("Invalid Blurhash");
+  }
+
+  const xComponents = (sizeDigit % 9) + 1;
+  const yComponents = Math.floor(sizeDigit / 9) + 1;
+  const expectedLength = 4 + 2 * xComponents * yComponents;
+
+  if (blurhash.length !== expectedLength) {
+    throw new Error("Invalid Blurhash");
+  }
+
   return {
     xComponents,
     yComponents,
