@@ -6,8 +6,6 @@ const requirePackage = createRequire(import.meta.url);
 
 const fields = {
   blurhash: "LCDJYN9FxG_M_N%L%M%M4o~ptRIA",
-  blurhashX: 4,
-  blurhashY: 4,
   sourceHeight: 1200,
   sourceWidth: 1600,
   url: "vb87s1",

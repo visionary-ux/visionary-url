@@ -27,8 +27,6 @@ const blurhashUrl = generateBlurhashUrl({
   url: "image:42", // Image ID or Image URL
   bcc: "#8696ac", // Background color code (base layer)
   blurhash: "AUFZT.%L_N%1", // Blurhash code
-  blurhashX: 2, // Blurhash X & Y components
-  blurhashY: 2,
   sourceHeight: 720, // Dimensions of image this placeholder represents
   sourceWidth: 960, // Used to determine aspect ratio and max-width of placeholder
 });
@@ -36,7 +34,7 @@ const blurhashUrl = generateBlurhashUrl({
 
 This generates the following Blurhash URL with placeholder data embedded. The bolded section below highlights the encoded placeholder data ("Visionary Code"):
 
-<code>https:<span>//blurhash</span>.link/image/<strong>aW1nIzQyITk2MCE3MjAhODY5NmFjIUFVRlpULiVMX04lMSEyITI</strong>/image.jpg</code>
+<code>https:<span>//blurhash</span>.link/image/<strong>aW1nIzQyITk2MCE3MjAhODY5NmFjIUFVRlpULiVMX04lMQ</strong>/image.jpg</code>
 
 You can configure a custom domain to serve Blurhash URLs. See [Using Your Own Domain](#using-your-own-domain) for more details.
 
@@ -63,9 +61,7 @@ The `Visionary Code` is a base64url-encoded string with the following fields (in
 | `2`   | Image height          | Used to calculate aspect ratio and constrain placeholder height. <br/> **required** |
 | `3`   | Background color code | Base layer color (e.g. `#BACCAE`).                                                  |
 | `4`   | Blurhash code         | Blurhash code for the image.                                                        |
-| `5`   | Blurhash X components | Number of X components in the Blurhash code.                                        |
-| `6`   | Blurhash Y components | Number of Y components in the Blurhash code.                                        |
-| `7`   | Alt text              | Optional alt text.                                                                  |
+| `5`   | Alt text              | Optional alt text.                                                                  |
 
 > [!NOTE]
 > The first three fields are required to render a properly sized placeholder. If the other fields are omitted, a placeholder with a semi-transparent black background (`rgba(0, 0, 0, 0.7)`) will be rendered.

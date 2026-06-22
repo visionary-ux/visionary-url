@@ -4,7 +4,7 @@ import { describe, expect, test } from "vitest";
 import { V_CODE_SEPARATOR } from "../constants";
 import { parseVisionaryCode, generateVisionaryCode } from "../visionary-code";
 
-import { VisionaryImageFields } from "../types/visionary.types";
+import { GenerateBlurhashUrlInput } from "../types/visionary.types";
 
 describe("visionary-code", () => {
   /**
@@ -97,6 +97,7 @@ describe("visionary-code", () => {
 
       const fields = parseVisionaryCode(code);
 
+      expect(fields?.blurhash).toBe("TCM*Bb^+Rkxuxuag~qWCj?M{M{fj");
       expect(fields?.blurhashX).toBe(3);
       expect(fields?.blurhashY).toBe(4);
       expect(fields?.altText).toBe("Legacy alt text");
@@ -127,11 +128,9 @@ describe("visionary-code", () => {
 
   describe(generateVisionaryCode.name, () => {
     test("generates a code", () => {
-      const fields: VisionaryImageFields = {
+      const fields: GenerateBlurhashUrlInput = {
         bcc: "be3e3f",
         blurhash: "18D+9+}S",
-        blurhashX: 2,
-        blurhashY: 1,
         sourceHeight: 100,
         sourceWidth: 200,
         url: "NdCJU",
@@ -149,11 +148,9 @@ describe("visionary-code", () => {
     });
 
     test("generates a code with alt text", () => {
-      const fields: VisionaryImageFields = {
+      const fields: GenerateBlurhashUrlInput = {
         altText: "Happy cow on a farm",
         blurhash: "A8D+9+}S01S$",
-        blurhashX: 2,
-        blurhashY: 2,
         bcc: "be3e3f",
         sourceHeight: 100,
         sourceWidth: 100,
@@ -177,7 +174,7 @@ describe("visionary-code", () => {
     });
 
     test("generates a barebones code (with only url/fileId and dimensions)", () => {
-      const fields: VisionaryImageFields = {
+      const fields: GenerateBlurhashUrlInput = {
         sourceHeight: 300,
         sourceWidth: 300,
         url: "42",
@@ -193,7 +190,7 @@ describe("visionary-code", () => {
     });
 
     test("generates a code with fileId as url, dimensions, and bcc (no blurhash)", () => {
-      const fields: VisionaryImageFields = {
+      const fields: GenerateBlurhashUrlInput = {
         bcc: "ff6699",
         sourceHeight: 300,
         sourceWidth: 300,

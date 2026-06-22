@@ -1,14 +1,12 @@
 import { describe, expect, test } from "vitest";
 
-import { VisionaryImageFields } from "../types/visionary.types";
+import { GenerateBlurhashUrlInput } from "../types/visionary.types";
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { InvalidEndpoint } from "../error";
 import { generateBlurhashUrl, parseBlurhashUrl, parseVisionaryString } from "../blurhash-url";
 
-const sampleFields: VisionaryImageFields = {
+const sampleFields: GenerateBlurhashUrlInput = {
   blurhash: "LCDJYN9FxG_M_N%L%M%M4o~ptRIA",
-  blurhashX: 4,
-  blurhashY: 4,
   bcc: "110044",
   sourceHeight: 1200,
   sourceWidth: 1600,
@@ -128,8 +126,8 @@ describe("blurhash-url", () => {
     });
 
     test("returns null on bad inputs", () => {
-      expect(generateBlurhashUrl("" as unknown as VisionaryImageFields)).toBeNull();
-      expect(generateBlurhashUrl({} as VisionaryImageFields)).toBeNull();
+      expect(generateBlurhashUrl("" as unknown as GenerateBlurhashUrlInput)).toBeNull();
+      expect(generateBlurhashUrl({} as GenerateBlurhashUrlInput)).toBeNull();
     });
 
     test("throws on invalid endpoint", () => {

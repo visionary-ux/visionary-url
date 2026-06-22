@@ -5,8 +5,9 @@ export { parseOptionsString } from "../src/image-options";
 export * from "../src/token";
 export { formatToContentType, isBase64UrlEncoded, suggestedBlurhashComponentDimensions } from "../src/util";
 export type {
+  BlurhashUrl,
+  BlurhashUrlFields,
+  BlurhashUrlOptions,
+  GenerateBlurhashUrlInput,
   GenerateUrlOptions,
-  VisionaryImage,
-  VisionaryImageFields,
-  VisionaryImageOptions,
 } from "../src/types/visionary.types";

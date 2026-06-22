@@ -3,12 +3,12 @@ import { decodeBase64Url, encodeBase64Url } from "visionary-base64url";
 import { V_CODE_SEPARATOR } from "./constants";
 import { extractBlurhashComponentDimensions, isBase64UrlEncoded } from "./util";
 
-import { VisionaryImageFields } from "./types/visionary.types";
+import { BlurhashUrlFields, GenerateBlurhashUrlInput } from "./types/visionary.types";
 
 /**
  * Generates a Visionary image code
  */
-export const generateVisionaryCode = (fields: VisionaryImageFields): string | Error => {
+export const generateVisionaryCode = (fields: GenerateBlurhashUrlInput): string | Error => {
   const { altText, bcc, blurhash, sourceHeight, sourceWidth, url } = fields;
   if (!url || !sourceWidth || !sourceHeight) {
     return new Error("Cannot construct visionary code: missing required url/width/height");
@@ -33,7 +33,7 @@ export const generateVisionaryCode = (fields: VisionaryImageFields): string | Er
 const joinAndEncodeComponents = (components: Array<string | number>): string =>
   encodeBase64Url(components.join(V_CODE_SEPARATOR));
 
-export const parseVisionaryCode = (code: string): VisionaryImageFields | null => {
+export const parseVisionaryCode = (code: string): BlurhashUrlFields | null => {
   if (typeof code !== "string") {
     return null;
   }
@@ -68,7 +68,7 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
     console.error("Cannot parse Visionary Code: invalid image dimensions", widthInput, heightInput);
     return null;
   }
-  const fields: VisionaryImageFields = {
+  const fields: BlurhashUrlFields = {
     sourceHeight,
     sourceWidth,
     url,
@@ -80,7 +80,6 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
 
   if (blurhash) {
     fields.blurhash = blurhash;
-
     try {
       const blurhashComponents = extractBlurhashComponentDimensions(blurhash);
       fields.blurhashX = blurhashComponents.xComponents;

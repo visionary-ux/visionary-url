@@ -1,9 +1,7 @@
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 
-/**
- * Image metadata fields encoded in a Blurhash URL
- */
-export interface VisionaryImageFields {
+/** Fields used to generate a Blurhash URL */
+export interface GenerateBlurhashUrlInput {
   /**
    * Alt text
    */
@@ -18,17 +16,6 @@ export interface VisionaryImageFields {
    * Blurhash string
    */
   blurhash?: string;
-
-  /**
-   * Number of _x_ components the blurhash string represents
-   */
-  blurhashX?: number;
-
-  /**
-   * Number of _y_ components the blurhash string represents
-   */
-
-  blurhashY?: number;
 
   /**
    * Height of original upload image (also max height)
@@ -46,20 +33,35 @@ export interface VisionaryImageFields {
   url: string;
 }
 
+/** Image metadata fields decoded from a Blurhash URL */
+export interface BlurhashUrlFields extends GenerateBlurhashUrlInput {
+  /**
+   * Number of _x_ components the blurhash string represents.
+   * Derived from the blurhash string during parsing.
+   */
+  blurhashX?: number;
+
+  /**
+   * Number of _y_ components the blurhash string represents.
+   * Derived from the blurhash string during parsing.
+   */
+  blurhashY?: number;
+}
+
 export interface BlurhashUrlParts {
   code: string;
   optionTokens: string[];
 }
 
-export interface VisionaryImage {
-  fields: VisionaryImageFields;
-  options: VisionaryImageOptions;
+export interface BlurhashUrl {
+  fields: BlurhashUrlFields;
+  options: BlurhashUrlOptions;
 }
 
 /**
  * Options are encoded in the second path segment of a Blurhash URL
  */
-export interface VisionaryImageOptions {
+export interface BlurhashUrlOptions {
   debug?: boolean;
   /**
    * Specifies that server should send the file as an attachment download
@@ -73,7 +75,7 @@ export interface VisionaryImageOptions {
   size?: ImageSizeToken;
 }
 
-export interface GenerateUrlOptions extends VisionaryImageOptions {
+export interface GenerateUrlOptions extends BlurhashUrlOptions {
   /**
    * Specifies a filename for the image URL. Defaults to `image.jpg`.
    * @NOTE It's highly recommended to specify a descriptive filename as this helps improve discoverability of images by search engines.
