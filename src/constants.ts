@@ -1,5 +1,5 @@
 import { ImageFormatToken, ImageSizeToken } from "./enum";
-import { VisionaryImageOptions } from "./types/visionary.types";
+import { BlurhashUrlOptions } from "./types/visionary.types";
 
 /**
  * Defaults blurhash components to [4, 4] (or [4, 3] for landscape photos)
@@ -7,12 +7,12 @@ import { VisionaryImageOptions } from "./types/visionary.types";
 export const BASE_BLURHASH_DIMENSIONS = 4;
 
 /**
- * Default endpoint for generating Visionary URLs
- * - Can be overridden in the `options` field of generateVisionaryUrl()
+ * Default endpoint for generating Blurhash URLs
+ * - Can be overridden in the `options` field of generateBlurhashUrl()
  */
-export const DEFAULT_ENDPOINT = "https://link.visionary.cloud";
+export const DEFAULT_ENDPOINT = "https://blurhash.link";
 
-export const DEFAULT_OPTIONS: VisionaryImageOptions = {
+export const DEFAULT_OPTIONS: BlurhashUrlOptions = {
   debug: false,
   format: ImageFormatToken.AUTO,
   size: ImageSizeToken.lg,

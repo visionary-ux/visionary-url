@@ -6,13 +6,13 @@ import {
   isImageFormatToken,
   isImageSizeToken,
 } from "./token";
-import { VisionaryImageOptions } from "./types/visionary.types";
+import { BlurhashUrlOptions } from "./types/visionary.types";
 
-export const parseOptionTokens = (optionTokens: string[] = []): VisionaryImageOptions => {
-  const returnOptions: VisionaryImageOptions = {};
+export const parseOptionTokens = (optionTokens: string[] = []): BlurhashUrlOptions => {
+  const returnOptions: BlurhashUrlOptions = {};
   for (const token of optionTokens) {
     if (isImageSizeToken(token)) {
-      returnOptions.size = ImageSizeToken[token];
+      returnOptions.size = token;
     } else if (isDebugToken(token)) {
       returnOptions.debug = true;
     } else if (isDownloadToken(token)) {
@@ -26,7 +26,7 @@ export const parseOptionTokens = (optionTokens: string[] = []): VisionaryImageOp
   return returnOptions;
 };
 
-export const generateOptionsString = (options: VisionaryImageOptions): string | null => {
+export const generateOptionsString = (options: BlurhashUrlOptions): string | null => {
   if (!options || typeof options !== "object") {
     return null;
   }
@@ -40,10 +40,8 @@ export const generateOptionsString = (options: VisionaryImageOptions): string | 
   if (options.follow) {
     tokenArr.push(UrlOptionToken.FOLLOW);
   }
-  if (options.format) {
-    if (options.format !== ImageFormatToken.AUTO) {
-      tokenArr.push(options.format);
-    }
+  if (options.format && options.format !== ImageFormatToken.AUTO) {
+    tokenArr.push(options.format);
   }
   if (options.size && isImageSizeToken(options.size)) {
     tokenArr.push(options.size);
@@ -51,5 +49,5 @@ export const generateOptionsString = (options: VisionaryImageOptions): string | 
   return tokenArr.length ? tokenArr.sort().join(",") : null;
 };
 
-export const parseOptionsString = (options = ""): VisionaryImageOptions =>
+export const parseOptionsString = (options = ""): BlurhashUrlOptions =>
   parseOptionTokens(options.split(","));

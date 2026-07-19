@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { generateOptionsString, parseOptionsString } from "../image-options";
-import { VisionaryImageOptions } from "../types/visionary.types";
+import { BlurhashUrlOptions } from "../types/visionary.types";
 
 describe(parseOptionsString.name, () => {
   test("options defaults", () => {
@@ -92,8 +92,8 @@ describe(generateOptionsString.name, () => {
   });
 
   test("does not return options string for invalid options", () => {
-    expect(generateOptionsString(null as unknown as VisionaryImageOptions)).toBeNull();
-    expect(generateOptionsString("" as unknown as VisionaryImageOptions)).toBeNull();
-    expect(generateOptionsString({ notAnOption: true } as unknown as VisionaryImageOptions)).toBeNull();
+    expect(generateOptionsString(null as unknown as BlurhashUrlOptions)).toBeNull();
+    expect(generateOptionsString("" as unknown as BlurhashUrlOptions)).toBeNull();
+    expect(generateOptionsString({ notAnOption: true } as unknown as BlurhashUrlOptions)).toBeNull();
   });
 });

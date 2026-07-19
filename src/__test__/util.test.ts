@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { ImageFormatToken } from "../enum";
+import { InvalidBlurhashComponentDimensions } from "../error";
 import { isImageSizeToken } from "../token";
 import {
   compact,
@@ -8,9 +9,10 @@ import {
   formatToContentType,
   isBase64UrlEncoded,
   extractBlurhashComponentDimensions,
+  isValidImageDimension,
 } from "../util";
 
-describe("Visionary URL utils", () => {
+describe("Blurhash URL utils", () => {
   describe(isImageSizeToken.name, () => {
     test("returns true for size token", () => {
       const isSize = isImageSizeToken("lg");
@@ -52,6 +54,19 @@ describe("Visionary URL utils", () => {
     });
   });
 
+  describe(isValidImageDimension.name, () => {
+    test.each([1, 400])("returns true for a positive integer: %s", (dimension) => {
+      expect(isValidImageDimension(dimension)).toBe(true);
+    });
+
+    test.each([0, -1, 0.5, Number.NaN, Number.POSITIVE_INFINITY])(
+      "returns false for an invalid dimension: %s",
+      (dimension) => {
+        expect(isValidImageDimension(dimension)).toBe(false);
+      }
+    );
+  });
+
   describe(compact.name, () => {
     test("can compact an array of strings", () => {
       const items = ["", "image", "xyzzz", null, false, 0, "image.jpg"];
@@ -78,14 +93,27 @@ describe("Visionary URL utils", () => {
   describe(extractBlurhashComponentDimensions.name, () => {
     test("can extract blurhash dimensions", () => {
       const testBlurhash1 = "UNL#hSRQ]z%30b-pxubIGcWV59NHa1I;W=of"; // 4x4
+      const testBlurhash2 = "%89=QlbH]+bG1Msn1Mn*#.S3}CNv$#oKoKw_"; // 2x8
 
       expect(extractBlurhashComponentDimensions(testBlurhash1)).toEqual({
         xComponents: 4,
         yComponents: 4,
       });
 
-      // Note: this function can't tell the order of x,y so there's no use testing non-square dimensions
-      // const testBlurhash2 = "%89=QlbH]+bG1Msn1Mn*#.S3}CNv$#oKoKw_"; // 2x8
+      expect(extractBlurhashComponentDimensions(testBlurhash2)).toEqual({
+        xComponents: 2,
+        yComponents: 8,
+      });
+    });
+
+    test("throws for invalid blurhash values", () => {
+      expect(() => extractBlurhashComponentDimensions("")).toThrow(InvalidBlurhashComponentDimensions);
+      expect(() => extractBlurhashComponentDimensions("!!!!!!")).toThrow(
+        InvalidBlurhashComponentDimensions
+      );
+      expect(() => extractBlurhashComponentDimensions("UNL#hS")).toThrow(
+        InvalidBlurhashComponentDimensions
+      );
     });
   });
 });

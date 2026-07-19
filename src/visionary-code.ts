@@ -1,32 +1,30 @@
 import { decodeBase64Url, encodeBase64Url } from "visionary-base64url";
 
 import { V_CODE_SEPARATOR } from "./constants";
-import { isBase64UrlEncoded } from "./util";
+import { extractBlurhashComponentDimensions, isBase64UrlEncoded, isValidImageDimension } from "./util";
 
-import { VisionaryImageFields } from "./types/visionary.types";
+import { BlurhashUrlFields, GenerateBlurhashUrlInput } from "./types/visionary.types";
 
 /**
  * Generates a Visionary image code
  */
-export const generateVisionaryCode = (fields: VisionaryImageFields): string | Error => {
-  const { altText, bcc, blurhash, blurhashX, blurhashY, sourceHeight, sourceWidth, url } = fields;
-  if (!url || !sourceWidth || !sourceHeight) {
+export const generateVisionaryCode = (fields: GenerateBlurhashUrlInput): string | Error => {
+  const { altText, bcc, blurhash, sourceHeight, sourceWidth, url } = fields;
+  if (!url || !isValidImageDimension(sourceWidth) || !isValidImageDimension(sourceHeight)) {
     return new Error("Cannot construct visionary code: missing required url/width/height");
   }
-  // minimum needed image placeholder information
-  const visionaryComponents = [url, sourceWidth, sourceHeight];
+
+  const visionaryComponents: Array<string | number> = [url, sourceWidth, sourceHeight];
+
   if (!bcc) {
     return joinAndEncodeComponents(visionaryComponents);
   }
-  // background color code is specified
   visionaryComponents.push(bcc);
-  if (!blurhash || !blurhashX || !blurhashY) {
+  if (!blurhash) {
     return joinAndEncodeComponents(visionaryComponents);
   }
-  // blurhash data is specified
-  visionaryComponents.push(blurhash, blurhashX, blurhashY);
-  // alt text is specified
-  if (altText && altText.length) {
+  visionaryComponents.push(blurhash);
+  if (altText) {
     visionaryComponents.push(altText);
   }
   return joinAndEncodeComponents(visionaryComponents);
@@ -35,7 +33,7 @@ export const generateVisionaryCode = (fields: VisionaryImageFields): string | Er
 const joinAndEncodeComponents = (components: Array<string | number>): string =>
   encodeBase64Url(components.join(V_CODE_SEPARATOR));
 
-export const parseVisionaryCode = (code: string): VisionaryImageFields | null => {
+export const parseVisionaryCode = (code: string): BlurhashUrlFields | null => {
   if (typeof code !== "string") {
     return null;
   }
@@ -52,37 +50,51 @@ export const parseVisionaryCode = (code: string): VisionaryImageFields | null =>
   if (imageData.length < 3) {
     return null;
   }
-  const [urlInput, widthInput, heightInput, bcc, blurhash, bhX, bhY, altText] = imageData;
+  if (imageData.length > 6) {
+    console.error("Cannot parse Visionary Code: unexpected component count", imageData);
+    return null;
+  }
+  const [urlInput, widthInput, heightInput, bcc, blurhash, altText] = imageData;
   const url = urlInput.trim();
   if (!url.length) {
-    console.error("Cannot parse code, empty file id");
+    console.error("Cannot parse code, empty file id/url");
     return null;
   }
   const sourceWidth = Number(widthInput.trim());
   const sourceHeight = Number(heightInput.trim());
-  if (isNaN(sourceWidth) || isNaN(sourceHeight) || !sourceWidth || !sourceHeight) {
+  if (!isValidImageDimension(sourceWidth) || !isValidImageDimension(sourceHeight)) {
     console.error("Cannot parse Visionary Code: invalid image dimensions", widthInput, heightInput);
     return null;
   }
-  const blurhashX = Number(bhX) ?? 0;
-  const blurhashY = Number(bhY) ?? 0;
-  if (blurhashX < 1 || blurhashY < 1) {
-    console.error(
-      "Cannot parse Visionary Code: invalid blurhash x, y component dimensions",
-      blurhashX,
-      blurhashY
-    );
-    return null;
-  }
-  const fields: VisionaryImageFields = {
-    altText,
-    bcc,
-    blurhash,
-    blurhashX,
-    blurhashY,
+  const fields: BlurhashUrlFields = {
     sourceHeight,
     sourceWidth,
     url,
   };
+
+  if (bcc) {
+    fields.bcc = bcc;
+  }
+
+  if (blurhash) {
+    fields.blurhash = blurhash;
+    try {
+      const blurhashComponents = extractBlurhashComponentDimensions(blurhash);
+      fields.blurhashX = blurhashComponents.xComponents;
+      fields.blurhashY = blurhashComponents.yComponents;
+    } catch {
+      console.error(
+        "Cannot parse Visionary Code: invalid blurhashX/blurhashY component dimensions",
+        blurhash,
+        altText
+      );
+      return null;
+    }
+  }
+
+  if (altText) {
+    fields.altText = altText;
+  }
+
   return fields;
 };

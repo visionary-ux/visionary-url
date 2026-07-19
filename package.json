@@ -1,70 +1,71 @@
 {
-  "name": "visionary-url",
-  "version": "1.3.3",
-  "description": "A lightweight library for generating image URLs with baked-in blurhash placeholders.",
+  "name": "blurhash-url",
+  "version": "1.4.0-pre.0",
+  "description": "Generate image URLs with embedded Blurhash placeholders.",
   "type": "module",
-  "main": "./dist/visionary-url.cjs",
-  "module": "./dist/visionary-url.js",
-  "source": "./lib/visionary-url.ts",
-  "types": "./dist/visionary-url.d.ts",
+  "main": "./dist/blurhash-url.cjs",
+  "module": "./dist/blurhash-url.js",
+  "source": "./lib/blurhash-url.ts",
+  "types": "./dist/blurhash-url.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/visionary-url.js",
-      "require": "./dist/visionary-url.cjs",
-      "types": "./dist/visionary-url.d.ts"
+      "types": "./dist/blurhash-url.d.ts",
+      "import": "./dist/blurhash-url.js",
+      "require": "./dist/blurhash-url.cjs"
     },
     "./constants": {
+      "types": "./dist/constants.d.ts",
       "import": "./dist/constants.js",
       "require": "./dist/constants.cjs",
-      "types": "./dist/constants.d.ts",
-      "default": "./dist/constants.cjs"
-    },
-    "./constants/index": {
-      "import": "./dist/constants.js",
-      "require": "./dist/constants.cjs",
-      "types": "./dist/constants.d.ts",
       "default": "./dist/constants.cjs"
     }
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "pnpm run clean && tsc && vite build",
     "clean": "rimraf dist/",
     "dev": "vite",
-    "lint": "tsc --noEmit && eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "tsc --noEmit && eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "test:package": "node package-smoke.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/visionary-ux/visionary-url.git"
+    "url": "git+https://github.com/visionary-ux/blurhash-url.git"
   },
   "files": [
     "dist/",
     "package.json",
     "README.md"
   ],
-  "devDependencies": {
-    "@types/node": "18.19.2",
-    "@typescript-eslint/eslint-plugin": "7.14.1",
-    "@typescript-eslint/parser": "7.14.1",
-    "eslint": "8.57.0",
-    "rimraf": "5.0.10",
-    "typescript": "5.5.2",
-    "vite": "5.4.11",
-    "vite-plugin-dts": "3.9.1",
-    "vitest": "1.6.0"
-  },
   "license": "ISC",
+  "sideEffects": false,
+  "packageManager": "pnpm@11.5.1",
+  "dependencies": {
+    "visionary-base64url": "^0.1.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "24.10.4",
+    "@typescript-eslint/eslint-plugin": "8.52.0",
+    "@typescript-eslint/parser": "8.52.0",
+    "eslint": "9.39.2",
+    "rimraf": "6.1.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.52.0",
+    "vite": "7.3.1",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.0.16"
+  },
   "keywords": [
     "base64url",
     "blur",
     "blurhash",
     "image",
+    "image-loading",
     "placeholder",
     "ux",
     "visionary"
-  ],
-  "dependencies": {
-    "visionary-base64url": "0.1.0"
-  }
+  ]
 }
