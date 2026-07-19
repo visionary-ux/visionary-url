@@ -64,6 +64,6 @@
     "visionary"
   ],
   "dependencies": {
-    "visionary-base64url": "file:bin/visionary-base64url-0.1.3c.tgz"
+    "visionary-base64url": "^0.1.4"
   }
 }

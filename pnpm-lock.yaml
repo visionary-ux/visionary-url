@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       visionary-base64url:
-        specifier: file:bin/visionary-base64url-0.1.3c.tgz
-        version: file:bin/visionary-base64url-0.1.3c.tgz
+        specifier: ^0.1.4
+        version: 0.1.4
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.2
@@ -922,9 +922,6 @@ packages:
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
-  js-base64@3.7.8:
-    resolution: {integrity: sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==}
-
   js-yaml@4.2.0:
     resolution: {integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==}
     hasBin: true
@@ -1211,9 +1208,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  visionary-base64url@file:bin/visionary-base64url-0.1.3c.tgz:
-    resolution: {integrity: sha512-dmd3yUKuwqsMyEnE+czaNjS5+d7R7c5vNcnunlDaYacdWf2HFG8u4wwz/e/BFlcL/MaHL8KJwM0Sl1stDohh1Q==, tarball: file:bin/visionary-base64url-0.1.3c.tgz}
-    version: 0.1.3
+  visionary-base64url@0.1.4:
+    resolution: {integrity: sha512-aUGGN8O0+phBR/qiGdAwmANv3BBsUAgx/47zV1ukcg2MrY0CdsM4DJDANIN2g7ouIGqawoKApZ04AMa+1PaWGA==}
 
   vite-plugin-dts@4.5.4:
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
@@ -2128,8 +2124,6 @@ snapshots:
 
   jju@1.4.0: {}
 
-  js-base64@3.7.8: {}
-
   js-yaml@4.2.0:
     dependencies:
       argparse: 2.0.1
@@ -2403,9 +2397,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  visionary-base64url@file:bin/visionary-base64url-0.1.3c.tgz:
-    dependencies:
-      js-base64: 3.7.8
+  visionary-base64url@0.1.4: {}
 
   vite-plugin-dts@4.5.4(@types/node@24.10.4)(rollup@4.62.0)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.4)):
     dependencies:
