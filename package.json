@@ -27,6 +27,7 @@
     "lint": "tsc --noEmit && eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
+    "test:ci": "vitest run",
     "test:package": "node package-smoke.mjs"
   },
   "repository": {
