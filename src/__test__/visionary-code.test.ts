@@ -1,5 +1,5 @@
 import { encodeBase64Url } from "visionary-base64url";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 
 import { V_CODE_SEPARATOR } from "../constants";
 import { parseVisionaryCode, generateVisionaryCode } from "../visionary-code";
@@ -33,7 +33,9 @@ describe("visionary-code", () => {
     });
 
     test("parses a full visionary code with fileId as url", () => {
-      const code = "aW1hZ2U6MTAwMDEhODAwITYwMCEjQkVFRUVGIVRDTSpCYl4rUmt4dXh1YWd-cVdDaj9Ne017ZmohMyE0";
+      const code = encodeBase64Url(
+        ["image:10001", 800, 600, "#BEEEEF", "TCM*Bb^+Rkxuxuag~qWCj?M{M{fj"].join(V_CODE_SEPARATOR)
+      );
 
       const fields = parseVisionaryCode(code);
 
@@ -47,8 +49,11 @@ describe("visionary-code", () => {
     });
 
     test("parses a code containing a URL", () => {
-      const code =
-        "aHR0cDovL2kuaW1hZ2VjZG40Mi5zcGFjZS9wdWJsaWMvaW1hZ2UtMTEuanBnITQzMiE2NDEhI2JhY2NhZSFCT0JnOV5-cS07fnE_Ynh1ITMhMg";
+      const code = encodeBase64Url(
+        ["http://i.imagecdn42.space/public/image-11.jpg", 432, 641, "#baccae", "BOBg9^~q-;~q?bxu"].join(
+          V_CODE_SEPARATOR
+        )
+      );
 
       const fields = parseVisionaryCode(code);
 
@@ -86,27 +91,13 @@ describe("visionary-code", () => {
       expect(fields?.altText).toBe(altText);
     });
 
-    // legacy url tests (remove)
-
-    test("parses a legacy visionary code with x/y and alt text", () => {
-      const code = encodeBase64Url(
-        ["image:10001", 800, 600, "#BEEEEF", "TCM*Bb^+Rkxuxuag~qWCj?M{M{fj", 3, 4, "Legacy alt text"].join(
-          V_CODE_SEPARATOR
-        )
-      );
-
-      const fields = parseVisionaryCode(code);
-
-      expect(fields?.blurhash).toBe("TCM*Bb^+Rkxuxuag~qWCj?M{M{fj");
-      expect(fields?.blurhashX).toBe(3);
-      expect(fields?.blurhashY).toBe(4);
-      expect(fields?.altText).toBe("Legacy alt text");
-    });
-
     test("returns null when inferred blurhash dimensions are invalid", () => {
+      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
       const code = encodeBase64Url(["image:10001", 800, 600, "#BEEEEF", "abcde"].join(V_CODE_SEPARATOR));
 
       expect(parseVisionaryCode(code)).toBeNull();
+
+      errorSpy.mockRestore();
     });
 
     test("ignores an invalid code", () => {
@@ -119,6 +110,19 @@ describe("visionary-code", () => {
 
     test("ignores an empty code", () => {
       expect(parseVisionaryCode("")).toBeNull();
+    });
+
+    test.each([
+      ["zero", 0, 600],
+      ["negative", -800, 600],
+      ["non-finite", "Infinity", 600],
+    ])("returns null for %s image dimensions", (_description, width, height) => {
+      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+      const code = encodeBase64Url(["image:10001", width, height].join(V_CODE_SEPARATOR));
+
+      expect(parseVisionaryCode(code)).toBeNull();
+
+      errorSpy.mockRestore();
     });
   });
 
@@ -201,5 +205,18 @@ describe("visionary-code", () => {
 
       expect(visionaryCode).toBe("NDIhMzAwITMwMCFmZjY2OTk");
     });
+
+    test.each([0, -1, Number.POSITIVE_INFINITY, Number.NaN])(
+      "rejects a non-positive or non-finite dimension: %s",
+      (sourceWidth) => {
+        const result = generateVisionaryCode({
+          sourceHeight: 300,
+          sourceWidth,
+          url: "42",
+        });
+
+        expect(result).toBeInstanceOf(Error);
+      }
+    );
   });
 });

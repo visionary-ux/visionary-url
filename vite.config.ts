@@ -4,6 +4,7 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig({
   build: {
+    minify: "esbuild",
     lib: {
       entry: {
         "blurhash-url": resolve(__dirname, "lib/blurhash-url.ts"),
@@ -15,6 +16,9 @@ export default defineConfig({
     rollupOptions: {
       external: ["visionary-base64url"],
     },
+  },
+  esbuild: {
+    drop: ["console"],
   },
   plugins: [
     dts({

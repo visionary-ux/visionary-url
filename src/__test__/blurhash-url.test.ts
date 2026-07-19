@@ -1,5 +1,7 @@
+import { encodeBase64Url } from "visionary-base64url";
 import { describe, expect, test } from "vitest";
 
+import { V_CODE_SEPARATOR } from "../constants";
 import { GenerateBlurhashUrlInput } from "../types/visionary.types";
 import { ImageFormatToken, ImageSizeToken } from "../enum";
 import { InvalidEndpoint } from "../error";
@@ -161,8 +163,9 @@ describe("blurhash-url", () => {
     });
 
     test("parses a Visionary code", () => {
-      const inputString =
-        "RnpIeUkxUlhPMiEzMzUxITQ5ODkhZDNiZTgwIVVDTixGaXE_MDNeJH5vSVVSOmpbMG5qWHQ2V0UtOnNrYWVhIyE0ITQ";
+      const inputString = encodeBase64Url(
+        ["FzHyI1RXO2", 3351, 4989, "d3be80", "UCN,Fiq?03^$~oIUR:j[0njXt6WE-:skaea#"].join(V_CODE_SEPARATOR)
+      );
 
       const { fields } = parseVisionaryString(inputString)!;
 

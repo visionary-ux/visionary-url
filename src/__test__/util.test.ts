@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 
 import { ImageFormatToken } from "../enum";
+import { InvalidBlurhashComponentDimensions } from "../error";
 import { isImageSizeToken } from "../token";
 import {
   compact,
@@ -8,6 +9,7 @@ import {
   formatToContentType,
   isBase64UrlEncoded,
   extractBlurhashComponentDimensions,
+  isValidImageDimension,
 } from "../util";
 
 describe("Blurhash URL utils", () => {
@@ -52,6 +54,19 @@ describe("Blurhash URL utils", () => {
     });
   });
 
+  describe(isValidImageDimension.name, () => {
+    test.each([1, 400])("returns true for a positive integer: %s", (dimension) => {
+      expect(isValidImageDimension(dimension)).toBe(true);
+    });
+
+    test.each([0, -1, 0.5, Number.NaN, Number.POSITIVE_INFINITY])(
+      "returns false for an invalid dimension: %s",
+      (dimension) => {
+        expect(isValidImageDimension(dimension)).toBe(false);
+      }
+    );
+  });
+
   describe(compact.name, () => {
     test("can compact an array of strings", () => {
       const items = ["", "image", "xyzzz", null, false, 0, "image.jpg"];
@@ -92,9 +107,13 @@ describe("Blurhash URL utils", () => {
     });
 
     test("throws for invalid blurhash values", () => {
-      expect(() => extractBlurhashComponentDimensions("")).toThrow(/Invalid Blurhash/);
-      expect(() => extractBlurhashComponentDimensions("!!!!!!")).toThrow(/Invalid Blurhash/);
-      expect(() => extractBlurhashComponentDimensions("UNL#hS")).toThrow(/Invalid Blurhash/);
+      expect(() => extractBlurhashComponentDimensions("")).toThrow(InvalidBlurhashComponentDimensions);
+      expect(() => extractBlurhashComponentDimensions("!!!!!!")).toThrow(
+        InvalidBlurhashComponentDimensions
+      );
+      expect(() => extractBlurhashComponentDimensions("UNL#hS")).toThrow(
+        InvalidBlurhashComponentDimensions
+      );
     });
   });
 });

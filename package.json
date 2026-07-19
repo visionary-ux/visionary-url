@@ -39,7 +39,12 @@
     "package.json",
     "README.md"
   ],
+  "license": "ISC",
+  "sideEffects": false,
   "packageManager": "pnpm@11.5.1",
+  "dependencies": {
+    "visionary-base64url": "^0.1.4"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@types/node": "24.10.4",
@@ -53,7 +58,6 @@
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.0.16"
   },
-  "license": "ISC",
   "keywords": [
     "base64url",
     "blur",
@@ -63,8 +67,5 @@
     "placeholder",
     "ux",
     "visionary"
-  ],
-  "dependencies": {
-    "visionary-base64url": "^0.1.4"
-  }
+  ]
 }
