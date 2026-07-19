@@ -1,6 +1,6 @@
 {
   "name": "blurhash-url",
-  "version": "1.4.0",
+  "version": "1.4.0-pre.0",
   "description": "Generate image URLs with embedded Blurhash placeholders.",
   "type": "module",
   "main": "./dist/blurhash-url.cjs",
