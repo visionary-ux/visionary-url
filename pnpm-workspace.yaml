@@ -2,6 +2,7 @@ packages:
   - .
 allowBuilds:
   esbuild: true
+  workerd: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - visionary-base64url
