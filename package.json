@@ -26,11 +26,11 @@
     "dev": "vite",
     "lint": "tsc --noEmit && eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:browser": "pnpm run build && vitest run --config vitest.browser.config.ts",
-    "test:ci": "vitest run",
-    "test:package": "node package-smoke.mjs",
-    "test:worker": "pnpm run build && vitest run --config vitest.worker.config.ts"
+    "test": "vitest --config test/config/vitest.config.ts",
+    "test:browser": "pnpm run build && vitest run --config test/config/vitest.browser.config.ts",
+    "test:ci": "vitest run --config test/config/vitest.config.ts",
+    "test:package": "node test/package-smoke.mjs",
+    "test:worker": "pnpm run build && vitest run --config test/config/vitest.worker.config.ts"
   },
   "repository": {
     "type": "git",
