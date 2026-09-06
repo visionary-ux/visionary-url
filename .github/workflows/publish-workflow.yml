@@ -55,8 +55,12 @@ jobs:
           registry-url: https://registry.npmjs.org/
           package-manager-cache: false
       - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm run build
+      - run: pnpm run test:ci
       - run: pnpm run test:package
+      - run: pnpm run test:browser
+      - run: pnpm run test:worker
       - name: Publish dry-run
         run: npm publish --dry-run
       - name: Publish to NPM
